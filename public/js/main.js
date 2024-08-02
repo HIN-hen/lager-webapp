@@ -22,7 +22,9 @@ const constraints = {
       ideal: 1080,
       max: 1440
     },
-    facingMode: 'environment' // use back cam
+    facingMode: {
+      exact: 'environment' // use front cam
+    }
   }
 };
 
