@@ -17,7 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public')); // needed for css and js files
 
-
 // handlebars
 const hbs = exphbs.create();
 app.engine('handlebars', hbs.engine);
