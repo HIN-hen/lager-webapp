@@ -11,11 +11,10 @@ let streamStarted = false;
 const [play, pause, screenshot] = buttons;
 
 const constraints = {
+  facingMode: {
+    exact: "environment", // use back cam (environment)
+  },
   video: {
-    facingMode: {
-      exact: "environment", // use front cam
-      ideal: "environment"
-    },
     width: {
       min: 1280,
       ideal: 1920,
@@ -37,7 +36,7 @@ play.onclick = () => {
     pause.classList.remove('d-none');
     return;
   }
-  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia({ video: true })) {
+  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia({ video: true, audio: false })) {
     const actualConstraints = {
         ...constraints, 
         deviceId: webCamInfo.id
