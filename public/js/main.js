@@ -12,6 +12,10 @@ const [play, pause, screenshot] = buttons;
 
 const constraints = {
   video: {
+    facingMode: {
+      exact: "environment", // use front cam
+      ideal: "environment"
+    },
     width: {
       min: 1280,
       ideal: 1920,
@@ -21,9 +25,6 @@ const constraints = {
       min: 720,
       ideal: 1080,
       max: 1440
-    },
-    facingMode: {
-      exact: 'environment' // use front cam
     }
   }
 };
