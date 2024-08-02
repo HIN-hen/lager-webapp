@@ -1,7 +1,3 @@
-/**
- * HIN, 30.07.2024 
- * main.js 
- * */
 feather.replace();
 
 const controls = document.querySelector('.controls');
@@ -73,18 +69,13 @@ const startStream = async (constraints) => {
 
 // Todo: Api for sending image to server ...
 const sendImageToServer = async (imageStr) => {
-    // api for sending image to server
-    fetch('/image/save', {
-        method: "POST",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-        imageStr: imageStr, 
-        }),
-    })
+  await fetch('/upload', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ "name": "test" })
+  })
 };
 
 // handle stream
@@ -96,7 +87,7 @@ const handleStream = (stream) => {
 
 };
 
-// camera selection
+// get camera
 const getCamera = async () => {
   const devices = await navigator.mediaDevices.enumerateDevices();
   const videoDevice = devices.filter(device => device.kind === 'videoinput')[0];
