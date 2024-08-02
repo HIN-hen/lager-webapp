@@ -22,6 +22,7 @@ const constraints = {
       ideal: 1080,
       max: 1440
     },
+    facingMode: 'environment' // use back cam
   }
 };
 
@@ -33,7 +34,7 @@ play.onclick = () => {
     pause.classList.remove('d-none');
     return;
   }
-  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
+  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia({ video: true })) {
     const actualConstraints = {
         ...constraints, 
         deviceId: webCamInfo.id
