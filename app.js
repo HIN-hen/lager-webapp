@@ -14,7 +14,9 @@ const app = express();
 const port = 3000;
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+
+app.use(express.static('public')); // needed for css and js files
+
 
 // handlebars
 const hbs = exphbs.create();
