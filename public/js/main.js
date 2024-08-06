@@ -1,3 +1,4 @@
+// Working facing mode ... https://codepen.io/apalshah/pen/XWdgPEw
 feather.replace();
 
 const controls = document.querySelector('.controls');

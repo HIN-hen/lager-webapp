@@ -1,3 +1,7 @@
+* {
+  padding: 0;
+  margin: 0;
+}
 
 .screenshot-image {
     width: 150px;
@@ -22,6 +26,7 @@
   
   video {
     width: 100%;
+    max-width: 100vw;
     background: rgba(0,0,0,0.2);
   }
   
