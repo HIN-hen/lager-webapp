@@ -17,6 +17,8 @@ block content
         li
           button#snapBtn Snap
     article
-      video#cam(autoplay muted playsinline) Not available
-    canvas#canvas(style="display:none")
-    img#photo(style="display:none",alt="Hidden screen capture box")
+      div.video-container
+        video#cam(autoplay muted playsinline) Not available
+        button.center_item start
+        canvas#canvas(style="display:none")
+        img#photo(style="display:none",alt="Hidden screen capture box")

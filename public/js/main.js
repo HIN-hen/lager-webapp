@@ -1,9 +1,3 @@
-/*
-Useful links: 
-  https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-  https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en#stop-ended-and-active
-  https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
-*/
 // Define working objects
 const switchFrontBtn = document.getElementById('switchFrontBtn');
 const switchBackBtn = document.getElementById('switchBackBtn')
@@ -130,5 +124,6 @@ snapBtn.onclick = (event) => {
 
 // call main function
 clearPhoto();
-// autostart environment camera
+
+// autostart camera in environment mode
 switchCamera("environment");
