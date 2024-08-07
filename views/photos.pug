@@ -1,0 +1,21 @@
+//- photos.pug
+extends layouts/main-layout.pug
+block content
+    h2 
+        title= amount
+    div.grid
+        each photo in photos
+            div 
+                img(src='./uploads/' + photo)
+                br
+                small
+                    mark= photo
+    table.striped 
+        thead(data-theme="dark")
+            tr 
+                th(scope="col") Planet 
+                th(sope="col") Diameter
+        tbody
+            tr 
+                th(scope="row") Planet Content 
+                td 0.0002

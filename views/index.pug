@@ -1,0 +1,22 @@
+//- index.pug
+extends layouts/main-layout.pug
+block content
+  article 
+    nav 
+      ul 
+        li
+          strong Lager-Webapp Prototyping
+          br 
+          small 
+            a(href="/photos") Uploaded Photos 
+      ul 
+        li 
+          button#switchFrontBtn Front Camera
+        li
+          button#switchBackBtn Back Camera
+        li
+          button#snapBtn Snap
+    article
+      video#cam(autoplay muted playsinline) Not available
+    canvas#canvas(style="display:none")
+    img#photo(style="display:none",alt="Hidden screen capture box")

@@ -1,107 +1,126 @@
-// Working facing mode ... https://codepen.io/apalshah/pen/XWdgPEw
-feather.replace();
+/*
+Useful links: 
+  https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+  https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en#stop-ended-and-active
+  https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
+*/
+// Define working objects
+const switchFrontBtn = document.getElementById('switchFrontBtn');
+const switchBackBtn = document.getElementById('switchBackBtn')
+const snapBtn = document.getElementById('snapBtn'); // take cam snap and upload it to folder.
+let cam = document.getElementById('cam');
 
-const controls = document.querySelector('.controls');
-const webCamInfo = document.querySelector('.webcam-info > span');
-const video = document.querySelector('video');
-const canvas = document.querySelector('canvas');
-const screenshotImage = document.querySelector('img');
-const buttons = [...controls.querySelectorAll('button')];
-let streamStarted = false;
+// reference to the current media stream
+let mediaStream = null;
 
-const [play, pause, screenshot] = buttons;
+// Prefer camera resolution nearest to 1280x720.
+const constraints = { 
+  audio: false, 
+  video: { 
+    width: { ideal: 640 }, 
+    height: { ideal: 480 },
+    facingMode: "environment" // default back cam
+  } 
+}; 
 
-const constraints = {
-  video: {
-    facingMode: 'environment',
-    width: {
-      min: 1280,
-      ideal: 1920,
-      max: 2560,
-    },
-    height: {
-      min: 720,
-      ideal: 1080,
-      max: 1440
+const getMediaStream = async (constraints) => {
+  try {
+    const mediaStream =  await navigator.mediaDevices.getUserMedia(constraints);
+    let video = cam;    
+    video.srcObject = mediaStream;
+    video.onloadedmetadata = (event) => {
+      video.play();
+    };
+  } catch (err)  {    
+    console.error(err.message);   
+  }
+};
+
+// switch between cameras
+const switchCamera = async (cameraMode) => {
+  try {
+    // stop the current video stream
+    if (mediaStream !== null && mediaStream.active) {
+      const tracks = mediaStream.getVideoTracks();
+      tracks.forEach(track => {
+        track.stop();
+      })      
     }
+    
+    // set the video source to null
+    cam.srcObject = null;
+    
+    // change "facingMode"
+    constraints.video.facingMode = cameraMode;
+    
+    // get new media stream
+    await getMediaStream(constraints);
+  } catch (err)  {    
+    console.error(err.message); 
   }
 };
 
-// play stream
-play.onclick = () => {
-  if (streamStarted) {
-    video.play();
-    play.classList.add('d-none');
-    pause.classList.remove('d-none');
-    return;
-  }
-  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia({ video: true, audio: false })) {
-    const actualConstraints = {
-        ...constraints, 
-        deviceId: webCamInfo.id
-    }
-    startStream(actualConstraints);
-  }
-};
-
-// pause stream
-const pauseStream = () => {
-  video.pause();
-  play.classList.remove('d-none');
-  pause.classList.add('d-none');
-};
-
-// do the screenshot
-const doScreenshot = async () => {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext('2d').drawImage(video, 0, 0);
-  screenshotImage.src = canvas.toDataURL('image/webp');
-  screenshotImage.classList.remove('d-none');
-  await sendImageToServer(screenshotImage.src);
-};
-
-pause.onclick = pauseStream;
-screenshot.onclick = doScreenshot;
-
-const startStream = async (constraints) => {
-  const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  handleStream(stream);
-};
-
-// Todo: Api for sending image to server ...
-const sendImageToServer = async (imageStr) => {
+// image upload
+const uploadPhotoToFolder = async (photo) => {  
+  const strPhoto = await photo.src.replace(/^data:image\/[a-z]+;base64,/, "");
   await fetch('/upload', {
     method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ "name": "test" })
-  })
+    body: JSON.stringify({ "base64": strPhoto })
+  });
 };
 
-// handle stream
-const handleStream = (stream) => {
-  video.srcObject = stream;
-  play.classList.add('d-none');
-  pause.classList.remove('d-none');
-  screenshot.classList.remove('d-none');
+// take camera picture
+const takePicture = async () => {
+  let canvas = document.getElementById('canvas');
+  let video = document.getElementById('cam');
+  let photo = document.getElementById('photo');  
+  let context = canvas.getContext('2d');
 
+  const height = video.videoHeight;
+  const width = video.videoWidth;
+  
+  if (width && height) {  
+    canvas.width = width;
+    canvas.height = height;
+    context.drawImage(video, 0, 0, width, height);    
+    const data = canvas.toDataURL('image/png');
+    photo.setAttribute('src', data);
+    await uploadPhotoToFolder(photo); // upload photo  
+    } else {
+    clearPhoto();
+  }
 };
 
-// get camera
-const getCamera = async () => {
-  const devices = await navigator.mediaDevices.enumerateDevices();
-  const videoDevice = devices.filter(device => device.kind === 'videoinput')[0];
-  webCamInfo.setAttribute('id', videoDevice.deviceId);
-  webCamInfo.append(videoDevice.label);
-  //autostart(videoDevice);
+// clear photo
+const clearPhoto = () => {
+  let canvas = document.getElementById('canvas');
+  let photo = document.getElementById('photo');
+  let context = canvas.getContext('2d');
+  
+  context.fillStyle = "#AAA";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  const data = canvas.toDataURL('image/png');
+  photo.setAttribute('src', data);
 };
 
-// autostart camera
-const autostart = (device) => {
-    device ? play.click() : null;
-}
+// Button click events
+switchFrontBtn.onclick = (event) => {
+  switchCamera("user");
+};
 
-// get camera with autostart
-getCamera();
+switchBackBtn.onclick = (event) => {  
+  switchCamera("environment");
+};
+
+snapBtn.onclick = (event) => {  
+  takePicture();
+  event.preventDefault();
+};
+
+// call main function
+clearPhoto();
+// autostart environment camera
+// switchCamera("environment");
