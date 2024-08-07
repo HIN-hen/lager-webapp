@@ -17,8 +17,16 @@ let mediaStream = null;
 const constraints = { 
   audio: false, 
   video: { 
-    width: { ideal: 640 }, 
-    height: { ideal: 480 },
+    width: {
+      min: 1280,
+      ideal: 1920,
+      max: 2560,
+    },
+    height: {
+      min: 720,
+      ideal: 1080,
+      max: 1440
+    },
     facingMode: "environment" // default back cam
   } 
 }; 
@@ -123,4 +131,4 @@ snapBtn.onclick = (event) => {
 // call main function
 clearPhoto();
 // autostart environment camera
-// switchCamera("environment");
+switchCamera("environment");
