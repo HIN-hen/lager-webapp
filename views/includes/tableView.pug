@@ -1,0 +1,34 @@
+table#tableView.striped.d-none
+    thead
+        tr
+            th(scope="col") Photo recorded
+            th(scope="col") Thumbnail
+            th(scope="col")
+                button.del-all.btn-delete.icon.trash(
+                    title="Delete confirmation",
+                    data-title="Delete confirmation",
+                    data-content="Are you sure you want to delete all photos? This can not be undone!",
+                    data-target="confirm-modal",
+                    onclick="toggleModal(event)"
+                    )
+    tbody
+        each photo, key in photos
+            tr(id=`${key + '-' + (photo.name.split(',', 1))}`)
+                th(scope="row")=photo.name
+                td
+                    img.lazy(
+                        src=photo.image,
+                        data-src=photo.image,
+                        title=photo.name,
+                        data-title=photo.name
+                        data-image=photo.image
+                        data-target="modal",
+                        onclick="toggleModal(event)"
+                        )
+                td
+                    button.del-single.icon.trash(title=`Delete ${photo.image}`, onclick='deletePhoto("' + [key, photo.image] + '")')
+        else
+            tr
+                th(scope="row")
+                td NO PHOTOS UPLOADED !
+                td

@@ -1,0 +1,23 @@
+//-- content modal with photo and interaction icons
+dialog#modal
+    article
+        header
+            button(aria-label="Close", rel="prev", data-target="modal", onclick="toggleModal(event)")
+            p.title
+        p
+            img.photo
+        footer
+            div#actions
+                a.download-image(download) Download
+                button.btn-close(data-target="modal", onclick="toggleModal(event)") Close
+
+//-- confirmation modal
+dialog#confirm-modal
+    article
+        header
+            button(aria-label="Close", rel="prev", data-target="confirm-modal", onclick="toggleModal(event)")
+            p.titleConfirm
+        p.contentConfirm
+        footer
+            button.secondary.btn-close(data-target="confirm-modal", onclick="toggleModal(event)") Cancel
+            button(data-target="confirm-modal", onclick="[deleteAllPhotos(), toggleModal(event)]") Delete

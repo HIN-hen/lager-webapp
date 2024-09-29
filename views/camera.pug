@@ -1,0 +1,17 @@
+extends layouts/main-layout.pug
+
+block content
+    div#view-container
+        div#main
+            // [canvas placeholder]
+            video(autoplay, playsinline)
+            img.screenshot-image.d-none
+            div.video-overlay
+            include includes/colorAndStrokePicker.pug
+        div#controls
+            button.pause-and-draw-on-image(title="Pause and draw", alt="Pause and draw", aria-pressed="false")
+            button.snapshot(title="Take a snapshot", alt="Take a snapshot")
+            button.photo-library(title="Photo library", alt="Photo library", onclick="window.location.href='/photos'")
+            button.toggle-fs(title="Toggle Fullscreen", alt="Toggle Fullscreen", aria-pressed="false")
+
+    script(src="js/camera.js", type="text/javascript", defer)

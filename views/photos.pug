@@ -1,0 +1,33 @@
+//- photos.pug
+extends layouts/main-layout.pug
+
+block content
+    div#uploadedPhotos.container-fluid
+
+        //-- View mode switcher
+        article
+            header
+                div.header
+                    div Photo Uploads
+                    div
+                        select#monthYearSelector(name="month-year-selector", aria-label="select")
+                            option(value="show_all") Show all
+
+                    div#interactions
+                        div#viewMode
+                            input(type="radio", id="mode-grid-view", name="view-mode", checked="checked")
+                            label(for="mode-grid-view") Grid
+                            input(type="radio", id="mode-table-view", name="view-mode")
+                            label(for="mode-table-view") Table
+                        div#themeSwitcher
+                            button.dark
+
+            div#viewPort
+                //-- Grid View Partial
+                include includes/gridView.pug
+
+                //-- Table View Partial
+                include includes/tableView.pug
+
+    script(src="js/photos.js" type="text/javascript", defer)
+    script(src="js/lazyLoad.min.js", type="text/javascript", defer)
