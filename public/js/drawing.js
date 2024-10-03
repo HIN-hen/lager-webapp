@@ -17,7 +17,7 @@ let strokeSize = 8;
 // Todo: BUG - possibility to open 2 tooltips at same time 
 toolBox.addEventListener("click", (event) => {
 
-    let action = event.target;
+    const action = event.target;
 
     actionId = event.target.name;
 
@@ -71,7 +71,7 @@ const doInit = () => {
     i = -1; 
 };
 
-const doSave = () => { doTakeAPhoto(); };
+const doSave = () => doTakeAPhoto();
 
 //-- event listeners for changing stroke size and color
 rangeSelectorStrokeSize.addEventListener("change", (event) => {

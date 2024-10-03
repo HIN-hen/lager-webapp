@@ -115,8 +115,8 @@ const drawOnCanvas = (canvas, ctx) => {
   const endPos= (e) => {
     painting = false;
     ctx.beginPath();
-    
-    if (e.type !== 'mouseup') return; // save in history only mouseup / touchend
+
+    if (e.type !== 'mouseup' || e.type !== 'touchend') return; // save in history only mouseup / touchend
     history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
     i++;
   }
