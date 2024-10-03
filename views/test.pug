@@ -1,0 +1,38 @@
+doctype html
+html(lang="en", data-theme="dark")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="css/test.css")
+    title Canvas drawing tests.
+  body
+    block content
+        main.draw 
+            div.draw-cursor
+            ul.draw-interface 
+                li.draw-item-brush 
+                    button.draw-icon.icon-brush(name="brush-outline")
+                    div.brush-modal 
+                        div.brush-modal-item  
+                            span.brush-modal-title width 
+                            input.brush-modal-range(type="range", value="10", min="1", max="100" step="1") 
+                            span.brush-modal-value 10
+                        div.brush-modal-item 
+                            span.brush-modal-title color 
+                            input.brush-modal-brushColor(type="color", value="#000000") 
+                li 
+                    button.draw-icon.icon-fill(name="color-fill-outline")
+                    input.draw-fill(type="color", value="#FFFFFF") 
+                li 
+                    button.draw-icon.icon-undo(name="arrow-undo-outline") 
+                li 
+                    button.draw-icon.icon-redo(name="arrow-redo-outline") 
+                li 
+                    button.draw-icon.icon-clear(name="refresh-outline") 
+                li 
+                    button.draw-icon.icon-save(name="save-outline") 
+
+    canvas.canvas
+
+  //script(src="js/camera.js", type="text/javascript", defer)
+  script(src="js/test.js", type="text/javascript", defer)

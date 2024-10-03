@@ -20,4 +20,6 @@ Todos:
 - adapt canvas to object-fit cover (done)
 - add full screen support (done)
 - adapt cursor to painter
+- add favicon.ico to prevent 404 (not found)
 ```
+## Go live on Ubuntu: https://medium.com/@sonumishra19091999/deploying-a-node-js-app-on-ubuntu-with-nginx-8b6999c37775

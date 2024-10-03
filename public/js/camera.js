@@ -1,34 +1,14 @@
 const video = document.querySelector('video');
+
 const videoContainer = document.getElementById('main');
 const guiContainer = document.getElementById('controls');
 
-const activeDrawingTools = document.querySelector("#drawingSettings");
+
 //const screenshotImg = document.querySelector('img');
 const videoOverlay = document.querySelector('.video-overlay');
 
 const buttons = [...guiContainer.querySelectorAll('button')];
 const [pauseAndDrawOnImage, snapshot, photoLibrary, toggleFs] = buttons;
-
-/* Color Picker attributes (selectable) */
-let color = "#00A870";
-let size = 8;
-
-const colorPicker = document.querySelector("#colorPicker");
-const labelColorPicker = document.querySelector('label[for="colorPicker"]');
-labelColorPicker.innerText = `Stroke color (${color})`;
-
-const strokeSize = document.querySelector("#strokeSize");
-const labelStrokeSize = document.querySelector('label[for="strokeSize"]');
-labelStrokeSize.innerText = `Stroke size (${size})`;
-
-const watchColorPicker = (event) => {
-  color = event.target.value;
-  labelColorPicker.innerText = `Stroke color (${color})`;
-}
-const watchStrokeSize = (event) => {
-  size = event.target.value;
-  labelStrokeSize.innerText = `Stroke size (${size})`;
-}
 
 // set video constraints
 const constraints = {
@@ -74,36 +54,40 @@ const getMediaStream = async () => {
 };
 
 //-- Pause / play video
-const doPausePlayVideo = async () => {
+const doPausePlayVideo = () => {
   const canvas = document.querySelector('canvas');
   const playPauseButton = document.querySelector('.pause-and-draw-on-image');
   if (!video.paused) {
-    await video.pause();
-    await createCanvas();
-    activeDrawingTools.classList.remove('d-none');
+    video.pause();
+    createCanvas();
+    //activeDrawingTools.classList.remove('d-none');
     videoContainer.classList.add('drawing-active');
     video.classList.add('d-none');
     playPauseButton.setAttribute('aria-pressed', 'true');
   } else {
     canvas.remove();
-    await video.play();
-    activeDrawingTools.classList.add('d-none');
+    video.play();
+    //activeDrawingTools.classList.add('d-none');
     videoContainer.classList.remove('drawing-active');
     video.classList.remove('d-none');
     playPauseButton.setAttribute('aria-pressed', 'false');
   }
 };
 
+let canvas;
+let ctx;
+
 // create canvas
 const createCanvas = () => {
   const mainContainer = document.getElementById('main');
-  const canvas = document.createElement('canvas');
+  canvas = document.createElement('canvas');
 
   const { width, height } = video.getBoundingClientRect();
   canvas.width = width;
   canvas.height = height;
 
-  const ctx = canvas.getContext('2d');
+  ctx = canvas.getContext('2d', { willReadFrequently: true }); // faster with will read frequently ;)
+
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
   mainContainer.prepend(canvas);
@@ -111,15 +95,15 @@ const createCanvas = () => {
   drawOnCanvas(canvas, ctx);
 };
 
+/* History testing */
+let history = [];
+let i = -1;
+let root = document.documentElement;
+
 // draw on canvas, give user drawing tools
 // adjust mouse pointer to actual viewport
 // with touch support for mobile devices
 const drawOnCanvas = (canvas, ctx) => {
-
-  // watch color picker changes and reselect the drawing color
-  colorPicker.addEventListener("input", watchColorPicker, false);
-  // watch stroke size changes
-  strokeSize.addEventListener("input", watchStrokeSize, false);
 
   let painting = false;
 
@@ -128,9 +112,13 @@ const drawOnCanvas = (canvas, ctx) => {
     draw(e);
   }
 
-  const endPos= () => {
+  const endPos= (e) => {
     painting = false;
     ctx.beginPath();
+    
+    if (e.type !== 'mouseup') return; // save in history only mouseup / touchend
+    history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+    i++;
   }
 
   // lets draw ...
@@ -140,21 +128,21 @@ const drawOnCanvas = (canvas, ctx) => {
     }
     e.preventDefault();
     e.stopPropagation();
-    ctx.lineWidth = size;
+    ctx.lineWidth = strokeSize;
     ctx.lineCap = "round";
     ctx.lineTo(e.clientX, e.clientY);
     ctx.stroke();
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = strokeColor;
     ctx.beginPath();
     ctx.moveTo(e.clientX, e.clientY);
   }
 
   // mouse / touch event listeners on canvas
-  canvas.addEventListener("mousedown", startPos);
-  canvas.addEventListener("touchstart", startPos);
-  canvas.addEventListener("mouseup", endPos);
-  canvas.addEventListener("touchend", endPos);
-  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("mousedown", startPos, false);
+  canvas.addEventListener("touchstart", startPos, false);
+  canvas.addEventListener("mouseup", endPos, false);
+  canvas.addEventListener("touchend", endPos, false);
+  canvas.addEventListener("mousemove", draw, false);
   canvas.addEventListener("touchmove", (e) => {
     const touch = e.touches[0];
     const mouseEvent = new MouseEvent("mousemove", {

@@ -1,5 +1,11 @@
 @import './pico/pico.jade.min.css';
 
+:root {
+  --cursor: 10px;
+  --cursorColor: black;
+  --bgColor: white;
+}
+
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
@@ -7,7 +13,7 @@
   display: flex;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden; 
 }
 
 /* Video- / Canvas - Container */
@@ -235,3 +241,189 @@ img:not([src]) {
 }
 
 /* Todo: SNACKBAR */
+
+/* Drawing Tools */
+.draw-cursor {
+  position: fixed;
+  width: var(--cursor);
+  height: var(--cursor);
+  border-radius: 50%;
+  border: 0.075rem solid white;
+  pointer-events: none;
+}
+
+.draw-cursor::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border: 0.075rem solid var(--cursorColor);
+  border-radius: 50%;
+}
+
+/* Draw interface (Toolbox)*/
+ul.toolbox {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10rem;
+  display: flex;
+  border: 0.075rem solid var(--pico-primary-background);
+  border-radius: 0.25rem;
+  padding: 0.25em 0.6em;
+  cursor: pointer;
+  background-color:white;
+  gap: .3em;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  cursor: pointer;
+
+  li {
+    list-style-type: none;
+  }
+
+  button {
+
+    background-position: center center;
+    background-repeat: no-repeat;
+  
+    &.tool-brush {
+      background-image: url('../images/camera/drawingTools/brush.svg');
+    }
+
+    &.tool-palette {
+      background-image: url('../images/camera/drawingTools/palette.svg');
+    }
+
+    &.tool-undo {
+      background-image: url('../images/camera/drawingTools/undo.svg');
+
+    }
+
+    &.tool-redo {
+      background-image: url('../images/camera/drawingTools/redo.svg');
+
+    }
+
+    &.tool-init {
+      background-image: url('../images/camera/drawingTools/restart.svg');
+
+    }
+
+    &.tool-save {
+      background-image: url('../images/camera/drawingTools/save.svg');
+    }
+  }
+}
+
+.brush-modal {
+  position: absolute;
+  left: calc(-8rem / 2);
+  bottom: 4rem;
+  font: 400 0.65rem helvetica,sans-serif;
+  border: 0.075rem solid var(--border);
+  border-radius: 0.25rem;
+  background-color: var(--bgColor);
+  padding: 0.5rem;
+  cursor: default;
+  display: none;
+}
+
+.active { display: block; }
+
+.brush-modal::after {
+  content: '';
+  position: absolute;
+  bottom: -0.3rem;
+  left: calc(50% - 0.25rem);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 0.075rem solid var(--border);
+  border-bottom: 0.075rem solid var(--border);
+  transform: rotate(45deg);
+  background-color: var(--bgColor);
+}
+
+.brush-modal-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.25rem 0;
+}
+
+.brush-modal-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4rem;
+  height: 1px;
+  background-color: var(--border);
+}
+
+::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 0.075rem solid var(--border);
+  border-radius: 50%;
+  background-color: var(--bgColor);
+}
+
+.brush-modal-value {
+  width: 2rem;
+  border: 0.075rem solid var(--border);
+  padding: 0.25rem 0;
+  text-align: center;
+}
+
+.brush-modal-brushColor {
+  border: none;
+  background-color: transparent;
+  width: 1.5rem;
+}
+
+.draw-fill {
+  position: absolute;
+  display: none;
+}
+
+/* ******************** */
+/* Tooltip for toolbox */
+/* ****************** */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-content {
+  width: 8rem;
+  min-height: 3rem;
+  background-color: var(--pico-primary-background);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -3.9em;
+  padding: .2em;
+  label {
+    font-size: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  } 
+}
+
+/* arrow bottom */
+.tooltip .tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--pico-primary-background) transparent transparent transparent;
+}

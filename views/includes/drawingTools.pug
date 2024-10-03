@@ -1,0 +1,21 @@
+ul.toolbox 
+    li
+        div.tooltip(id="brush")
+            button.tool-brush(name="brush", alt="Adjust stroke size", title="Adjust stroke size") 
+                span.tooltip-content.d-none
+                    label(for="stroke-size") Stroke size
+                    input(id="stroke-size", type="range", value="10", min="1", max="100", step="1")
+    li
+        div.tooltip(id="palette")
+            button.tool-palette(name="palette", alt="Adjust stroke color", title="Adjust stroke color") 
+                span.tooltip-content.d-none
+                    label(for="stroke-color") Stroke color
+                    input(id="stroke-color", type="color", value="#FFFFFF")
+    li 
+        button.tool-undo(name="undo", alt="Undo drawing", title="Undo drawing") 
+    li 
+        button.tool-redo(name="redo", alt="Redo drawing", title="Redo drawing")
+    li 
+        button.tool-init(name="init", alt="Clear all drawings", title="Clear all drawings")
+    li 
+        button.tool-save(name="save", alt="Save image", title="Save image")
