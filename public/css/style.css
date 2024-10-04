@@ -242,25 +242,6 @@ img:not([src]) {
 
 /* Todo: SNACKBAR */
 
-/* Drawing Tools */
-.draw-cursor {
-  position: fixed;
-  width: var(--cursor);
-  height: var(--cursor);
-  border-radius: 50%;
-  border: 0.075rem solid white;
-  pointer-events: none;
-}
-
-.draw-cursor::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  border: 0.075rem solid var(--cursorColor);
-  border-radius: 50%;
-}
-
 /* Draw interface (Toolbox)*/
 ul.toolbox {
   position: absolute;
@@ -318,86 +299,15 @@ ul.toolbox {
   }
 }
 
-.brush-modal {
-  position: absolute;
-  left: calc(-8rem / 2);
-  bottom: 4rem;
-  font: 400 0.65rem helvetica,sans-serif;
-  border: 0.075rem solid var(--border);
-  border-radius: 0.25rem;
-  background-color: var(--bgColor);
-  padding: 0.5rem;
-  cursor: default;
-  display: none;
-}
-
-.active { display: block; }
-
-.brush-modal::after {
-  content: '';
-  position: absolute;
-  bottom: -0.3rem;
-  left: calc(50% - 0.25rem);
-  width: 0.5rem;
-  height: 0.5rem;
-  border-right: 0.075rem solid var(--border);
-  border-bottom: 0.075rem solid var(--border);
-  transform: rotate(45deg);
-  background-color: var(--bgColor);
-}
-
-.brush-modal-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0.25rem 0;
-}
-
-.brush-modal-range {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 4rem;
-  height: 1px;
-  background-color: var(--border);
-}
-
-::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0.75rem;
-  height: 0.75rem;
-  border: 0.075rem solid var(--border);
-  border-radius: 50%;
-  background-color: var(--bgColor);
-}
-
-.brush-modal-value {
-  width: 2rem;
-  border: 0.075rem solid var(--border);
-  padding: 0.25rem 0;
-  text-align: center;
-}
-
-.brush-modal-brushColor {
-  border: none;
-  background-color: transparent;
-  width: 1.5rem;
-}
-
-.draw-fill {
-  position: absolute;
-  display: none;
-}
-
 /* ******************** */
-/* Tooltip for toolbox */
+/* Modal for toolbox */
 /* ****************** */
-.tooltip {
+.toolbox-modal {
   position: relative;
   display: inline-block;
 }
 
-.tooltip .tooltip-content {
+.toolbox-modal .toolbox-modal-content {
   width: 8rem;
   min-height: 3rem;
   background-color: var(--pico-primary-background);
@@ -410,14 +320,14 @@ ul.toolbox {
   left: 50%;
   margin-left: -3.9em;
   padding: .2em;
-  label {
-    font-size: 1rem;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  } 
+
+    label {
+      font-size: 1rem;
+    } 
 }
 
 /* arrow bottom */
-.tooltip .tooltip-content::after {
+.toolbox-modal .toolbox-modal-content::after {
   content: "";
   position: absolute;
   top: 100%;

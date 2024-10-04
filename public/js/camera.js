@@ -1,6 +1,8 @@
 const video = document.querySelector('video');
 
 const videoContainer = document.getElementById('main');
+const drawingTools = document.getElementById('drawingTools');
+
 const guiContainer = document.getElementById('controls');
 
 
@@ -9,6 +11,7 @@ const videoOverlay = document.querySelector('.video-overlay');
 
 const buttons = [...guiContainer.querySelectorAll('button')];
 const [pauseAndDrawOnImage, snapshot, photoLibrary, toggleFs] = buttons;
+
 
 // set video constraints
 const constraints = {
@@ -60,22 +63,20 @@ const doPausePlayVideo = () => {
   if (!video.paused) {
     video.pause();
     createCanvas();
-    //activeDrawingTools.classList.remove('d-none');
+    drawingTools.classList.remove('d-none');
     videoContainer.classList.add('drawing-active');
     video.classList.add('d-none');
     playPauseButton.setAttribute('aria-pressed', 'true');
   } else {
     canvas.remove();
     video.play();
-    //activeDrawingTools.classList.add('d-none');
+    drawingTools.classList.add('d-none');
     videoContainer.classList.remove('drawing-active');
     video.classList.remove('d-none');
     playPauseButton.setAttribute('aria-pressed', 'false');
   }
 };
 
-let canvas;
-let ctx;
 
 // create canvas
 const createCanvas = () => {
@@ -95,11 +96,6 @@ const createCanvas = () => {
   drawOnCanvas(canvas, ctx);
 };
 
-/* History testing */
-let history = [];
-let i = -1;
-let root = document.documentElement;
-
 // draw on canvas, give user drawing tools
 // adjust mouse pointer to actual viewport
 // with touch support for mobile devices
@@ -107,16 +103,16 @@ const drawOnCanvas = (canvas, ctx) => {
 
   let painting = false;
 
-  const startPos = (e) => {
+  const startPos = (e) => { 
     painting = true;
     draw(e);
   }
 
-  const endPos= (e) => {
+  const endPos = (e) => {
     painting = false;
     ctx.beginPath();
-    
-    if (!['mouseup','touchend'].includes(e.type)) return; // very important if not mouseup / touchend ... leave!
+
+    if (!['mouseup','touchend'].includes(e.type)) return; // if not mouseup / touchend don't save in history!
 
     history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
     i++;

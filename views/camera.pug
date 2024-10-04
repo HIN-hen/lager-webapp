@@ -3,13 +3,13 @@ extends layouts/main-layout.pug
 block content
     div#view-container
         div#main
-            include includes/drawingTools.pug
+            div#drawingTools.d-none
+                include includes/drawingTools.pug
             // [canvas placeholder]
             video(autoplay, playsinline)
             img.screenshot-image.d-none
             div.video-overlay
-            div.d-none 
-                include includes/colorAndStrokePicker.pug
+            
         div#controls
             button.pause-and-draw-on-image(title="Pause and draw", alt="Pause and draw", aria-pressed="false")
             button.snapshot(title="Take a snapshot", alt="Take a snapshot")

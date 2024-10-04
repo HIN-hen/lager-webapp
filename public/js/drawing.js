@@ -1,48 +1,20 @@
 const toolBox = document.querySelector('ul.toolbox');
-const brushModal = document.querySelector('.brush-modal');
-const paletteModal = document.querySelector('.palette-modal');
-const toolBtns = [...toolBox.querySelectorAll('button')];
+const modalContents = toolBox.querySelectorAll('span.toolbox-modal-content');
 
 const rangeSelectorStrokeSize = toolBox.querySelector('input#stroke-size');
 const pickerSelectorStrokeColor = toolBox.querySelector('input#stroke-color');
 
-const [brush, palette, undo, redo, init, save] = toolBtns;
-
-let actionId = null; // active tooltip id
-let tempId = null; // temp var for detecting tooltip id 2times click on same button (icon)
-
+// needed for drawing on canvas
+// used in camera.js
 let strokeColor = "#00A870";
 let strokeSize = 8;
 
-// Todo: BUG - possibility to open 2 tooltips at same time 
-toolBox.addEventListener("click", (event) => {
+ // needed for canvas drawing history
+ // used in camera.js
+ let history = [];
+ let i = -1;
 
-    const action = event.target;
-
-    actionId = event.target.name;
-
-    if (actionId) {
-
-        const tooltip = toolBox.querySelector(`div.tooltip[id=${actionId}]`);
-        
-        // tooltip only needed in stroke and palette id (brush and stroke)
-        if (tooltip && (actionId === 'brush' || actionId === 'palette')) {
-            const tooltipContentClass = tooltip.querySelector('span.tooltip-content').classList;
-
-            tempId !== actionId ? tooltipContentClass.remove('d-none') : [tooltipContentClass.add('d-none'),  actionId = null];
-        
-            tempId = actionId;
-
-        } 
-
-       action.matches('.tool-undo') && doUndo();
-       action.matches('.tool-redo') && doRedo();
-       action.matches('.tool-init') && doInit();
-       action.matches('.tool-save') && doSave();
-    }
-});
-
-//-- toolbox actions
+//-- toolbox actions with visual handling drawing history
 const reset = () => { 
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height); 
     i = -1; 
@@ -53,7 +25,6 @@ const fillColor = () => { const [r,g,b] = ctx.getImageData(0,0,1,1).data; };
 const doUndo = () => {
     if (i <= 0) return reset();
     i--;
-    console.log(history[i]);
     ctx.putImageData(history[i], 0, 0);
     fillColor(); 
 };
@@ -66,12 +37,30 @@ const doRedo = () => {
 };
 
 const doInit = () => {
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // reset to the beginning of drawing.
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // start from the beginning
     history = [];
     i = -1; 
 };
 
-const doSave = () => doTakeAPhoto();
+const doSave = () => doTakeAPhoto(); // same as take a photo functionality
+
+// Todo: BUG - possibility to open 2 tooltips at same time 
+toolBox.addEventListener("click", (event) => {
+
+    const action = event.target;
+
+    const modal = (type) => {
+       const found = [...modalContents].find(el => el.id === type);
+       found.classList.toggle('d-none');
+    }
+  
+    action.matches('.tool-brush') && modal("brush");
+    action.matches('.tool-palette') && modal("palette");
+    action.matches('.tool-undo') && doUndo();
+    action.matches('.tool-redo') && doRedo();
+    action.matches('.tool-init') && doInit();
+    action.matches('.tool-save') && doSave();
+});
 
 //-- event listeners for changing stroke size and color
 rangeSelectorStrokeSize.addEventListener("change", (event) => {
