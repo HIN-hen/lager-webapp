@@ -5,13 +5,11 @@ const drawingTools = document.getElementById('drawingTools');
 
 const guiContainer = document.getElementById('controls');
 
-
 //const screenshotImg = document.querySelector('img');
 const videoOverlay = document.querySelector('.video-overlay');
 
 const buttons = [...guiContainer.querySelectorAll('button')];
 const [pauseAndDrawOnImage, snapshot, photoLibrary, toggleFs] = buttons;
-
 
 // set video constraints
 const constraints = {
