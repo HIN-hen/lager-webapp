@@ -88,7 +88,7 @@ const deletePhoto = async (value) => {
     const id = +item[0];
     const photo = item[1];
     const findItem = await viewPortContent[id];
-    fetch('/photos', {
+    fetch('api/photos/delete', {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -96,14 +96,16 @@ const deletePhoto = async (value) => {
         },
         body: JSON.stringify([photo])
     }).then(() =>
-        findItem.remove()
+        findItem.remove(),
+        showSnackBar("Photo has been deleted.")
     ).catch(error =>
         console.log(error.message));
 };
+
 //-- all files with confirmation
 const deleteAllPhotos = () => {
     const photos = getAllPhotosAsArrayWithoutUrl();
-    fetch('/photos', {
+    fetch('api/photos/delete', {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',

@@ -1,8 +1,5 @@
 import express from "express";
-import { readdir, writeFile } from "node:fs/promises";
-import { unlink } from "node:fs";
-import router from "./router/index.js";
-import formatDate from "./helpers/helper.formatDate.js";
+import appRoutes from "./routes/index.js";
 
 const __dirname = import.meta.dirname;
 
@@ -15,7 +12,7 @@ app.use(express.static(__dirname + "/uploads")); // static folder for uploaded f
 
 app.use(express.json({ limit: "50mb" }));
 
-app.use(router);
+app.use(appRoutes);
 
 //- pug template engine
 app.set("view engine", "pug");

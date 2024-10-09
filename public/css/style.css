@@ -1,11 +1,5 @@
 @import './pico/pico.jade.min.css';
 
-:root {
-  --cursor: 10px;
-  --cursorColor: black;
-  --bgColor: white;
-}
-
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
@@ -240,10 +234,9 @@ img:not([src]) {
   visibility: hidden;
 }
 
-/* Todo: SNACKBAR */
-
 /* Draw interface (Toolbox)*/
 ul.toolbox {
+  visibility: hidden;
   position: absolute;
   z-index: 2;
   left: 50%;
@@ -263,6 +256,10 @@ ul.toolbox {
 
   li {
     list-style-type: none;
+  }
+
+  &.show-tools {
+    visibility: visible;
   }
 
   button {
@@ -336,4 +333,49 @@ ul.toolbox {
   border-width: 5px;
   border-style: solid;
   border-color: var(--pico-primary-background) transparent transparent transparent;
+}
+
+/* ******************************* */
+/* Snackbar for user action infos */
+/* ***************************** */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--pico-primary-background);
+  text-align: center;
+  border-radius: 0.15em;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 0.5em;
+  height: 2.5em;
+  padding: 0.5em;
+
+  &.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+
+    @-webkit-keyframes fadein {
+      from {bottom: 0; opacity: 0;} 
+      to {bottom: 30px; opacity: 1;}
+    }
+    
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+    
+    @-webkit-keyframes fadeout {
+      from {bottom: 30px; opacity: 1;} 
+      to {bottom: 0; opacity: 0;}
+    }
+    
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
+
+  }
 }

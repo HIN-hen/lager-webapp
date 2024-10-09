@@ -1,24 +1,20 @@
-import express from 'express';
-import path from "node:path";
 import { Buffer } from "node:buffer";
 import { readdir, writeFile } from "node:fs/promises";
 import { unlink } from "node:fs";
 import formatDate from "../helpers/helper.formatDate.js";
-
-const router = express.Router();
+import path from "node:path";
 
 const __uploadDir = path.resolve('uploads'); // resolve path to uploads folder
 
-// home route
-router.get("/", (req, res) => {
+// home 
+const home = (req, res) => {
     res.render('camera');
-});
+};
 
-// get photos api route
-router.get("/photos", async (req, res) => {
+// get photos 
+const getPhotos = async (req, res) => {
     let photos = [];
     try {
-        //const files = await readdir(__dirname + "/uploads", (err) => {
         const files = await readdir(__uploadDir, (err) => {
             if (err) throw err;
         });
@@ -30,10 +26,10 @@ router.get("/photos", async (req, res) => {
     } catch (error) {
         res.status(204).render('No file found, ' + error.message);
     }
-});
+};
 
-// delete photos api route
-router.delete('/photos', async (req, res) => {
+// delete photos 
+const deletePhotos = async (req, res) => {
     const photos = req.body;
     try {
         await photos.forEach(photo => {
@@ -46,10 +42,10 @@ router.delete('/photos', async (req, res) => {
     } catch (error) {
         res.status(500).send("Error deleting image, " + error.message);
     }
-});
+};
 
-// upload photos api route
-router.post('/upload', async (req, res) => {
+// upload photos
+const uploadPhotos = async (req, res) => {
     const { base64 } = req.body;
     const buf = Buffer.from(base64, 'base64');
     try {
@@ -60,6 +56,13 @@ router.post('/upload', async (req, res) => {
     } catch (err) {
         res.status(500).send(err.message);
     }
-});
+};
 
-export default router;
+const appController = {
+    home,
+    getPhotos,
+    deletePhotos,
+    uploadPhotos
+};
+
+export default appController;

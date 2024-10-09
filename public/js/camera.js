@@ -1,7 +1,8 @@
 const video = document.querySelector('video');
 
 const videoContainer = document.getElementById('main');
-const drawingTools = document.getElementById('drawingTools');
+
+const drawingToolBox = document.querySelector('ul.toolbox');
 
 const guiContainer = document.getElementById('controls');
 
@@ -27,7 +28,8 @@ const constraints = {
     frameRate: {
       max: 60
     },
-    facingMode: "environment" // user = front cam, environment = back cam
+    // !!! SET BACK TO ENVIRONMENT !!!
+    facingMode: "user" // user = front cam, environment = back cam
   }
 };
 
@@ -61,22 +63,24 @@ const doPausePlayVideo = () => {
   if (!video.paused) {
     video.pause();
     createCanvas();
-    drawingTools.classList.remove('d-none');
+    drawingToolBox.classList.add("show-tools");
     videoContainer.classList.add('drawing-active');
     video.classList.add('d-none');
     playPauseButton.setAttribute('aria-pressed', 'true');
+    showSnackBar('Drawing mode enabled.');
   } else {
     canvas.remove();
     video.play();
-    drawingTools.classList.add('d-none');
+    drawingToolBox.classList.remove("show-tools");
     videoContainer.classList.remove('drawing-active');
     video.classList.remove('d-none');
     playPauseButton.setAttribute('aria-pressed', 'false');
+    showSnackBar('Drawing mode disabled.');
   }
 };
 
-
 // create canvas
+
 const createCanvas = () => {
   const mainContainer = document.getElementById('main');
   canvas = document.createElement('canvas');
@@ -93,6 +97,7 @@ const createCanvas = () => {
 
   drawOnCanvas(canvas, ctx);
 };
+
 
 // draw on canvas, give user drawing tools
 // adjust mouse pointer to actual viewport
@@ -161,6 +166,8 @@ const doTakeAPhoto = async () => {
 
   await uploadPhotoToFolder(element);
   await feedbackPhotoTaken();
+
+  showSnackBar('Photo uploaded.');
 };
 
 /* If client requests fullscreen mode (maybe better on mobile) */
@@ -177,7 +184,7 @@ const doToggleFullScreen = () => {
 // image upload
 const uploadPhotoToFolder = async (photo) => {
   const strPhoto = await photo.replace(/^data:image\/[a-z]+;base64,/, "");
-  await fetch('/upload', {
+  await fetch('api/photos/upload', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -201,8 +208,6 @@ const feedbackPhotoTaken = async () => {
   }
 
 };
-
-// Todo: snackbar for user interaction messages
 
 //-- init application
 const initApplication = async () => {
