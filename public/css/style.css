@@ -348,9 +348,14 @@ ul.toolbox {
   position: fixed;
   z-index: 1;
   left: 50%;
-  top: 0.5em;
+  top: 3em;
   height: 2.5em;
   padding: 0.5em;
+
+  p {
+    color: white;
+    font-size: 1em;
+  }
 
   &.show {
     visibility: visible;
@@ -358,23 +363,23 @@ ul.toolbox {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 
     @-webkit-keyframes fadein {
-      from {bottom: 0; opacity: 0;} 
-      to {bottom: 30px; opacity: 1;}
+      from { bottom: 0; opacity: 0; } 
+      to { bottom: 30px; opacity: 1; }
     }
     
     @keyframes fadein {
-      from {bottom: 0; opacity: 0;}
-      to {bottom: 30px; opacity: 1;}
+      from { bottom: 0; opacity: 0; }
+      to { bottom: 30px; opacity: 1; }
     }
     
     @-webkit-keyframes fadeout {
-      from {bottom: 30px; opacity: 1;} 
-      to {bottom: 0; opacity: 0;}
+      from { bottom: 30px; opacity: 1; } 
+      to { bottom: 0; opacity: 0; }
     }
     
     @keyframes fadeout {
-      from {bottom: 30px; opacity: 1;}
-      to {bottom: 0; opacity: 0;}
+      from { bottom: 30px; opacity: 1; }
+      to { bottom: 0; opacity: 0; }
     }
 
   }
