@@ -98,12 +98,12 @@ body {
   }
   #main, .video-overlay, .no-active-stream {
     width: 100vw;
-    height: 80vh;
+    height: 85vh;
   }
   #controls {
     flex-direction: row;
     width: 100vw;
-    height: 20vh;
+    height: 15vh;
   }
 }
 
@@ -113,12 +113,12 @@ body {
     flex-direction: row;
   }
   #main, .video-overlay, .no-active-stream {
-    width: 80vw;
+    width: 85vw;
     height: 100vh;
   }
   #controls {
     flex-direction: column;
-    width: 20vw;
+    width: 15vw;
     height: 100vh;
   }
 }
