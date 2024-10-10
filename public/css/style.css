@@ -14,7 +14,6 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  overflow: hidden;
 }
 
 /* Video- / Canvas - Container */
@@ -99,13 +98,13 @@ body {
     flex-direction: column;
   }
   #main, .video-overlay, .no-active-stream {
-    width: 100%;
-    height: 80%;
+    width: 100vw;
+    height: 80vh;
   }
   #controls {
     flex-direction: row;
-    width: 100%;
-    height: 20%;
+    width: 100vw;
+    height: 20vh;
     left: 0;
   }
 }
@@ -116,13 +115,13 @@ body {
     flex-direction: row;
   }
   #main, .video-overlay, .no-active-stream {
-    width: 80%;
-    height: 100%;
+    width: 80vw;
+    height: 100vh;
   }
   #controls {
     flex-direction: column;
-    width: 20%;
-    height: 100%;
+    width: 20vw;
+    height: 100vh;
     right: 0;
   }
 }
