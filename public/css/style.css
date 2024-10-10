@@ -1,8 +1,6 @@
 @import './pico/pico.jade.min.css';
 
 body {
-  margin: 0;
-  padding: 0;
   background-color: #111;
 }
 
@@ -14,12 +12,11 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  overflow: hidden;
 }
 
 /* Video- / Canvas - Container */
 #main {
-
-  overflow: hidden; 
 
   video {
     width: 100%;
