@@ -1,5 +1,9 @@
 @import './pico/pico.jade.min.css';
 
+body {
+  background-color: #111;
+}
+
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
@@ -13,7 +17,7 @@
 /* Video- / Canvas - Container */
 #main {
 
-  background-color: #111;
+  overflow: hidden; 
 
   video {
     width: 100%;
@@ -38,6 +42,7 @@
     p {
       font-size: 2rem;
       text-align: center;
+      margin-top: 1em;
     }
   }
 }

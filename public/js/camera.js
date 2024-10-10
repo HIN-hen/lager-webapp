@@ -27,7 +27,7 @@ const constraints = {
       max: 60
     },
     // !!! SET BACK TO ENVIRONMENT !!!
-    facingMode: "environment" // user = front cam, environment = back cam
+    facingMode: "user" // user = front cam, environment = back cam
   }
 };
 
