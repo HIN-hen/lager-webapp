@@ -1,16 +1,14 @@
 const video = document.querySelector('video');
-
+const noActiveStream = document.querySelector('.no-active-stream');
 const videoContainer = document.getElementById('main');
-
 const drawingToolBox = document.querySelector('ul.toolbox');
-
 const guiContainer = document.getElementById('controls');
 
 //const screenshotImg = document.querySelector('img');
 const videoOverlay = document.querySelector('.video-overlay');
 
 const buttons = [...guiContainer.querySelectorAll('button')];
-const [pauseAndDrawOnImage, snapshot, photoLibrary, toggleFs] = buttons;
+const [toggleFs, photoLibrary, snapshot, pauseAndDrawOnImage] = buttons;
 
 // set video constraints
 const constraints = {
@@ -29,7 +27,7 @@ const constraints = {
       max: 60
     },
     // !!! SET BACK TO ENVIRONMENT !!!
-    facingMode: "user" // user = front cam, environment = back cam
+    facingMode: "environment" // user = front cam, environment = back cam
   }
 };
 
@@ -221,7 +219,8 @@ const initApplication = async () => {
     pauseAndDrawOnImage.classList.remove('d-none');
     snapshot.classList.remove('d-none');
   } else {
-    console.log('init application -> no active camera stream') // Todo: give user feedback!
+    console.log('init application -> no active camera stream') 
+    noActiveStream.classList.remove('d-none');
   }
 };
 

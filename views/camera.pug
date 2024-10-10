@@ -8,12 +8,14 @@ block content
             video(autoplay, playsinline, webkit-playsinline, muted)
             img.screenshot-image.d-none
             div.video-overlay
-            
+            div.no-active-stream.d-none
+                p No active camera stream
+
         div#controls
-            button.pause-and-draw-on-image(title="Pause and draw", alt="Pause and draw", aria-pressed="false")
-            button.snapshot(title="Take a snapshot", alt="Take a snapshot")
-            button.photo-library(title="Photo library", alt="Photo library", onclick="window.location.href='/photos'")
             button.toggle-fs(title="Toggle Fullscreen", alt="Toggle Fullscreen", aria-pressed="false")
+            button.photo-library(title="Photo library", alt="Photo library", onclick="window.location.href='/photos'")
+            button.snapshot(title="Take a snapshot", alt="Take a snapshot")
+            button.pause-and-draw-on-image(title="Pause and draw", alt="Pause and draw", aria-pressed="false")
 
     script(src="js/camera.js", type="text/javascript", defer)
     script(src="js/drawing.js", type="text/javascript", defer)
