@@ -52,11 +52,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  background-color: #111;
 
   position: fixed;
   bottom: 0;
-  
-  border: 1px solid yellow;
 
   button {
     background-position: center center;
