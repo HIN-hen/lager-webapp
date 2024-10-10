@@ -1,6 +1,8 @@
 @import './pico/pico.jade.min.css';
 
 body {
+  margin: 0;
+  padding: 0;
   background-color: #111;
 }
 
@@ -9,8 +11,6 @@ body {
 /* ********************* */
 #view-container {
   display: flex;
-  width: 100vw;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -55,6 +55,10 @@ body {
   align-items: center;
   justify-content: space-around;
 
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+
   button {
     background-position: center center;
     background-repeat: no-repeat;
@@ -98,12 +102,12 @@ body {
   }
   #main, .video-overlay, .no-active-stream {
     width: 100vw;
-    height: 85vh;
+    height: 80vh;
   }
   #controls {
     flex-direction: row;
     width: 100vw;
-    height: 15vh;
+    height: 20vh;
   }
 }
 
@@ -113,12 +117,12 @@ body {
     flex-direction: row;
   }
   #main, .video-overlay, .no-active-stream {
-    width: 85vw;
+    width: 80vw;
     height: 100vh;
   }
   #controls {
     flex-direction: column;
-    width: 15vw;
+    width: 20vw;
     height: 100vh;
   }
 }
