@@ -261,10 +261,10 @@ img:not([src]) {
 ul.toolbox {
   visibility: hidden;
   position: absolute;
-  z-index: 2;
   left: 50%;
+  bottom: 0;
+  z-index: 2;
   transform: translateX(-50%);
-  bottom: 10rem;
   display: flex;
   border: 0.075rem solid var(--pico-primary-background);
   border-radius: 0.25rem;
@@ -274,7 +274,6 @@ ul.toolbox {
   gap: .3em;
   justify-content: space-between;
   align-items: center;
-  list-style-type: none;
   cursor: pointer;
 
   li {
