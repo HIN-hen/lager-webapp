@@ -10,6 +10,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 /* Video- / Canvas - Container */
@@ -52,9 +53,7 @@
   align-items: center;
   justify-content: space-around;
   background-color: #111;
-  position: fixed;
-  bottom: 0;
-
+ 
   button {
     background-position: center center;
     background-repeat: no-repeat;
