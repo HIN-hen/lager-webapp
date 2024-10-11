@@ -6,18 +6,14 @@
 #view-container {
   display: flex;
   position: fixed;
-  overflow: hidden;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
 }
 
 /* Video- / Canvas - Container */
 #main {
 
   background-color: #111;
-
 
   video {
     width: 100%;
