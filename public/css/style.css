@@ -5,6 +5,9 @@
 /* ********************* */
 #view-container {
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
 }
@@ -14,11 +17,6 @@
 
   background-color: #111;
   border: 1px solid lime;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
 
   video {
     width: 100%;
