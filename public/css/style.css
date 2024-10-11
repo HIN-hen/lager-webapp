@@ -1,16 +1,16 @@
 @import './pico/pico.jade.min.css';
 
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+}
+
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
 #view-container {
   display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
 }
 
 /* Video- / Canvas - Container */
@@ -19,6 +19,10 @@
   background-color: #111;
 
   border: 1px solid lime;
+
+  position: fixed;
+  top: 0;
+  left: 0;
 
   video {
     width: 100%;
@@ -54,6 +58,9 @@
   align-items: center;
   justify-content: space-around;
   background-color: #111;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
  
   button {
     background-position: center center;
@@ -104,7 +111,7 @@
     flex-direction: column;
     width: 20vw;
     height: 100vh;
-    /*right: 0;*/
+    right: 0;
   }
 }
 
@@ -121,7 +128,8 @@
     flex-direction: row;
     width: 100vw;
     height: 20vh;
-    /*left: 0;*/
+    left: 0;
+    border: 1px solid lightblue;
   }
 }
 
