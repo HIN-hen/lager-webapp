@@ -17,6 +17,7 @@
 #main {
 
   background-color: #111;
+  overflow: hidden;
 
   video {
     width: 100%;
