@@ -5,7 +5,8 @@
 /* ********************* */
 #view-container {
   display: flex;
-  overflow:hidden;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* Video- / Canvas - Container */
@@ -17,6 +18,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  overflow: hidden;
 
   video {
     width: 100%;
