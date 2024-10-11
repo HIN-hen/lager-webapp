@@ -1,15 +1,12 @@
 @import './pico/pico.jade.min.css';
 
-body {
-  background-color: #111;
-}
-
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
 #view-container {
   display: flex;
-  position: fixed;
+  position: relative;
+  overflow: hidden;
   top: 0;
   left: 0;
   width: 100vw;
@@ -19,7 +16,7 @@ body {
 /* Video- / Canvas - Container */
 #main {
 
-  border: 1px solid lime;
+  background-color: #111;
 
   video {
     width: 100%;
@@ -55,9 +52,6 @@ body {
   align-items: center;
   justify-content: space-around;
   background-color: #111;
-
-  border: 1px solid lightblue;
-
   position: fixed;
   bottom: 0;
 
@@ -97,23 +91,6 @@ body {
   }
 }
 
-/* Portrait mode (smaller viewports) */
-@media screen and (orientation: portrait) {
-  #view-container {
-    flex-direction: column;
-  }
-  #main, .video-overlay, .no-active-stream {
-    width: 100vw;
-    height: 80vh;
-  }
-  #controls {
-    flex-direction: row;
-    width: 100vw;
-    height: 20vh;
-    left: 0;
-  }
-}
-
 /* Landscape mode (larger viewports) */
 @media screen and (orientation: landscape) {
   #view-container {
@@ -128,6 +105,23 @@ body {
     width: 20vw;
     height: 100vh;
     right: 0;
+  }
+}
+
+/* Portrait mode (smaller viewports) */
+@media screen and (orientation: portrait) {
+  #view-container {
+    flex-direction: column;
+  }
+  #main, .video-overlay, .no-active-stream {
+    width: 100vw;
+    height: 80vh;
+  }
+  #controls {
+    flex-direction: row;
+    width: 100vw;
+    height: 20vh;
+    left: 0;
   }
 }
 
