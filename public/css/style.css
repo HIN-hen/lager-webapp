@@ -17,6 +17,7 @@
 #main {
 
   background-color: #111;
+
   border: 1px solid lime;
 
   video {
@@ -103,7 +104,7 @@
     flex-direction: column;
     width: 20vw;
     height: 100vh;
-    right: 0;
+    /*right: 0;*/
   }
 }
 
@@ -120,7 +121,7 @@
     flex-direction: row;
     width: 100vw;
     height: 20vh;
-    left: 0;
+    /*left: 0;*/
   }
 }
 
