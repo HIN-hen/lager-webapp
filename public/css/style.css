@@ -5,10 +5,10 @@
 /* ********************* */
 #view-container {
   display: flex;
-  border: 1px solid lightblue;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  position: fixed;
+  overflow-y: hidden;
 }
 
 /* Video- / Canvas - Container */
