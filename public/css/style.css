@@ -1,5 +1,10 @@
 @import './pico/pico.slate.min.css';
 
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
