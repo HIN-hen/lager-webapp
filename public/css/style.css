@@ -4,7 +4,7 @@
 /* camera (/camera) **** */
 /* ********************* */
 #view-container {
-  /*display: flex;*/
+  display: flex;
 }
 
 /* Video- / Canvas - Container */
@@ -23,6 +23,7 @@
   canvas {
     width: 100%;
     height: 100%;
+    object-fit: fill;
   }
 
   .no-active-stream {
