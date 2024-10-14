@@ -26,7 +26,6 @@ const constraints = {
     frameRate: {
       max: 60
     },
-    // !!! SET BACK TO ENVIRONMENT !!!
     facingMode: "environment" // user = front cam, environment = back cam
   }
 };
@@ -62,7 +61,7 @@ const doPausePlayVideo = () => {
     video.pause();
     createCanvas();
     drawingToolBox.classList.add("show-tools");
-    videoContainer.classList.add('drawing-active');
+    //videoContainer.classList.add('drawing-active');
     video.classList.add('d-none');
     playPauseButton.setAttribute('aria-pressed', 'true');
     showSnackBar('Drawing mode enabled.');
@@ -70,7 +69,7 @@ const doPausePlayVideo = () => {
     canvas.remove();
     video.play();
     drawingToolBox.classList.remove("show-tools");
-    videoContainer.classList.remove('drawing-active');
+    //videoContainer.classList.remove('drawing-active');
     video.classList.remove('d-none');
     playPauseButton.setAttribute('aria-pressed', 'false');
     showSnackBar('Drawing mode disabled.');
