@@ -1,24 +1,14 @@
 @import './pico/pico.jade.min.css';
 
-body {
-  margin: 0;
-  padding: 0;
-  background: #000;
-}
-
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
 #view-container {
-  display: flex;
+  /*display: flex;*/
 }
 
 /* Video- / Canvas - Container */
 #main {
-
-  background-color: #111;
-
-  border: 1px solid lime;
 
   position: fixed;
   top: 0;
@@ -129,7 +119,6 @@ body {
     width: 100vw;
     height: 20vh;
     left: 0;
-    border: 1px solid lightblue;
   }
 }
 
