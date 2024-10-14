@@ -7,6 +7,9 @@
   display: flex;
   width: 100vw;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   overflow: hidden;
 }
 
@@ -268,23 +271,10 @@ ul.toolbox {
   justify-content: space-between;
   align-items: center;
   visibility: hidden;
-
   position: fixed;
   bottom: 16vh;
   left: 50vw;
   transform: translate(-50%, -50%);
-
-  /*
-  position: absolute;
-  left: 29%;
-  bottom: 0;
-  z-index: 2;
-  border: 1px solid red;
-*/
-  /*
-  border: 0.075rem solid var(--pico-primary-background);
-  border-radius: 0.25rem;
-  /*padding: 0.25em 0.6em;*/
   padding: 0;
   cursor: pointer;
   gap: .4em;
