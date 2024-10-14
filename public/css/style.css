@@ -127,13 +127,15 @@
     flex-direction: column;
   }
   #main, .video-overlay, .no-active-stream {
-    width: 100vw;
-    height: 80vh;
+    width: 100%;
+    height: 80%;
   }
   #controls {
     flex-direction: row;
-    width: 100vw;
-    height: 20vh;
+    width: 100%;
+    /*height: 20%;*/
+    height: auto;
+    border: 1px dotted orange;
     /*
     left: 0;
     */
