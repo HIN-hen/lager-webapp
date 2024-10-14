@@ -10,6 +10,11 @@
 /* Video- / Canvas - Container */
 #main {
 
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+
   video {
     width: 100%;
     height: 100%;
@@ -44,6 +49,9 @@
   align-items: center;
   justify-content: space-around;
   background-color: #111;
+
+  position: fixed;
+  bottom: 0;
 
   button {
     background-position: center center;
@@ -104,10 +112,6 @@
 @media screen and (orientation: portrait) {
   #view-container {
     flex-direction: column;
-    border: 1px solid red;
-    overflow: hidden;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
   }
   #main, .video-overlay, .no-active-stream {
     width: 100vw;
