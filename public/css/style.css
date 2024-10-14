@@ -11,8 +11,7 @@
 #main {
 
   position: fixed;
-  top: 0;
-  left: 0;
+
   overflow: hidden;
 
   video {
@@ -51,7 +50,6 @@
   background-color: #111;
 
   position: fixed;
-  bottom: 0;
 
   button {
     background-position: center center;
@@ -116,12 +114,18 @@
   #main, .video-overlay, .no-active-stream {
     width: 100vw;
     height: 80vh;
+
+    top: 0;
+
   }
 
   #controls {
     flex-direction: row;
     width: 100vw;
     height: 20vh;
+
+    left: 0;
+    bottom: 0;
     /*
     left: 0;
     */
