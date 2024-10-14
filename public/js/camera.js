@@ -82,6 +82,7 @@ const createCanvas = () => {
   canvas = document.createElement('canvas');
 
   const { width, height } = video.getBoundingClientRect();
+
   canvas.width = width;
   canvas.height = height;
 
