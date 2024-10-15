@@ -54,6 +54,7 @@ const getMediaStream = async () => {
 };
 
 //-- Pause / play video
+// Todo: remove unnecessary code
 const doPausePlayVideo = () => {
   const canvas = document.querySelector('canvas');
   const playPauseButton = document.querySelector('.pause-and-draw-on-image');
@@ -94,7 +95,6 @@ const createCanvas = () => {
 
   drawOnCanvas(canvas, ctx);
 };
-
 
 // draw on canvas, give user drawing tools
 // adjust mouse pointer to actual viewport

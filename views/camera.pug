@@ -4,7 +4,7 @@ block content
     div#view-container
         div#main
             include includes/drawingTools.pug
-            // [canvas placeholder]
+            // [canvas placeholder] [fix: don't create canvas on the fly]
             video(autoplay, playsinline, webkit-playsinline, muted)
             img.screenshot-image.d-none
             div.video-overlay
