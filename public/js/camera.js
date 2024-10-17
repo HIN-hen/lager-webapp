@@ -26,7 +26,7 @@ const constraints = {
     frameRate: {
       max: 60
     },
-    facingMode: "environment" // user = front cam, environment = back cam
+    facingMode: "user" // user = front cam, environment = back cam
   }
 };
 
@@ -83,7 +83,7 @@ const createCanvas = () => {
   canvas = document.createElement('canvas');
 
   const { width, height } = video.getBoundingClientRect();
-
+  
   canvas.width = width;
   canvas.height = height;
 
@@ -148,7 +148,6 @@ const drawOnCanvas = (canvas, ctx) => {
     });
     draw(mouseEvent);
   }, false);
-
 };
 
 //-- Camera snapshot button (take a photo with and without draw lines)
