@@ -10,15 +10,18 @@ const videoOverlay = document.querySelector('.video-overlay');
 const buttons = [...guiContainer.querySelectorAll('button')];
 const [toggleFs, photoLibrary, snapshot, pauseAndDrawOnImage] = buttons;
 
+const width = window.innerWidth;
+const height = window.innerHeight;
+
 // set video constraints
 const constraints = {
   audio: false,
   video: {
     width: {
-      min: 640, ideal: 1920, max: 2560
+      min: 640, ideal: width, max: 2560
     },
     height: {
-      min: 400, ideal: 1080, max: 1440
+      min: 400, ideal: height, max: 1440
     },
     aspectRatio: {
       ideal: 1.777777778 // 16/9
