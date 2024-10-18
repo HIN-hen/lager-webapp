@@ -29,7 +29,7 @@ const constraints = {
     frameRate: {
       max: 60
     },
-    facingMode: "user" // user = front cam, environment = back cam
+    facingMode: "environment" // user = front cam, environment = back cam
   }
 };
 
