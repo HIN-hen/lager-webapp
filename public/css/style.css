@@ -4,17 +4,21 @@
 /* camera (/camera) **** */
 /* ********************* */
 #view-container {
+  /*
+  display: flex;
+  */
   width: 100vw;
   height: 100vh;
-  position: relative;  
+
+  position: relative;
+
 }
 
 /* Video- / Canvas - Container */
 #main {
 
   position: fixed;
-  overflow: hidden;
-  
+
   .no-active-stream {
     background-image: url('../images/camera/videocam_off.svg');
     background-position: center center;
@@ -34,6 +38,10 @@
 
 /* User Interaction GUI (Controls) container */
 #controls {
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   
   position: fixed;
 
@@ -75,7 +83,7 @@
   }
 }
 
-/* Landscape mode (larger viewports) 
+/* Landscape mode (larger viewports) */
 @media screen and (orientation: landscape) {
   #view-container {
     flex-direction: row;
@@ -83,6 +91,8 @@
   #main, .video-overlay, .no-active-stream {
     width: 80vw;
     height: 100vh;
+  
+    overflow: hidden;
   }
   #controls {
     flex-direction: column;
@@ -93,9 +103,8 @@
   }
 }
 
-
 /* Portrait mode (smaller viewports) */
-@media screen and (orientation: landscape) {
+@media screen and (orientation: portrait) {
   #view-container {
     flex-direction: column;
   }
@@ -104,6 +113,7 @@
     height: 80vh;
   }
   #controls {
+    flex-direction: row;
     width: 100vw;
     height: 20vh;
 

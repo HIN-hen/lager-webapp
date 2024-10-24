@@ -10,8 +10,8 @@ const videoOverlay = document.querySelector('.video-overlay');
 const buttons = [...guiContainer.querySelectorAll('button')];
 const [toggleFs, photoLibrary, snapshot, pauseAndDrawOnImage] = buttons;
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+// get dimensions of videoContainer and adapt canvas and video to this dimensions!
+const { width, height } = videoContainer.getBoundingClientRect();
 
 // set video constraints
 const constraints = {
@@ -27,6 +27,7 @@ const constraints = {
       ideal: 1.777777778 // 16/9
     },
     frameRate: {
+      min: 30,
       max: 60
     },
     facingMode: "environment" // user = front cam, environment = back cam
@@ -59,8 +60,10 @@ const getMediaStream = async () => {
 //-- Pause / play video
 // Todo: remove unnecessary code
 const doPausePlayVideo = () => {
-  const canvas = document.querySelector('canvas');
+  //const canvas = document.querySelector('canvas');
   const playPauseButton = document.querySelector('.pause-and-draw-on-image');
+  !video.paused ? video.pause() : video.play();
+  /*
   if (!video.paused) {
     video.pause();
     createCanvas();
@@ -70,7 +73,7 @@ const doPausePlayVideo = () => {
     playPauseButton.setAttribute('aria-pressed', 'true');
     showSnackBar('Drawing mode enabled.');
   } else {
-    canvas.remove();
+    //canvas.remove();
     video.play();
     drawingToolBox.classList.remove("show-tools");
     videoContainer.classList.remove('drawing-active');
@@ -78,13 +81,14 @@ const doPausePlayVideo = () => {
     playPauseButton.setAttribute('aria-pressed', 'false');
     showSnackBar('Drawing mode disabled.');
   }
+    */
 };
 
-// create canvas
+/*
 const createCanvas = () => {
   const mainContainer = document.getElementById('main');
   canvas = document.createElement('canvas');
-
+  
   const { width, height } = video.getBoundingClientRect();
   
   canvas.width = width;
@@ -98,11 +102,15 @@ const createCanvas = () => {
 
   drawOnCanvas(canvas, ctx);
 };
+*/
 
 // draw on canvas, give user drawing tools
 // adjust mouse pointer to actual viewport
 // with touch support for mobile devices
 const drawOnCanvas = (canvas, ctx) => {
+
+
+  console.log(ctx);
 
   let painting = false;
 
@@ -205,7 +213,6 @@ const feedbackPhotoTaken = async () => {
     await sound.play();
     setTimeout(reset, 80);
   }
-
 };
 
 //-- init application
@@ -233,4 +240,102 @@ toggleFs.onclick = doToggleFullScreen;
 /* initialize application after DOM content was loaded */
 document.addEventListener('DOMContentLoaded', async () => {
   await initApplication();
+
+  
+  const videoEl = document.getElementById('w');
+  videoEl.height = height;
+  videoEl.width = width;
+
+  const canvas = document.getElementById('c');
+  canvas.classList.remove('d-none');
+  videoEl.classList.add('d-none');
+  
+  canvas.width = width;
+  canvas.height = height;
+
+  const fps = 60;
+  let canvasInterval = null;
+
+  const ctx = canvas.getContext('2d', { willReadFrequently: true, alpha: false });
+  
+  const drawImage = () => {
+    ctx.drawImage(videoEl, 0, 0, width, height);
+  }
+  canvasInterval = window.setInterval(() => {
+    drawImage(videoEl);
+  }, 1000 / fps);
+  videoEl.onpause = function() {
+    clearInterval(canvasInterval);
+  };
+  videoEl.onended = function() {
+    clearInterval(canvasInterval);
+  };
+  videoEl.onplay = function() {
+    clearInterval(canvasInterval);
+    canvasInterval = window.setInterval(() => {
+      drawImage(videoEl);
+    }, 1000 / fps);
+  };
+
+  drawingToolBox.classList.add("show-tools");
+  videoContainer.classList.add('drawing-active');
+  
+  drawOnCanvas(canvas, ctx);
+
+
+  /*
+  window.cancelRequestAnimFrame = (function(){
+    return  window.cancelAnimationFrame ||
+            window.webkitCancelRequestAnimationFrame ||
+            window.mozCancelRequestAnimationFrame ||
+            window.oCancelRequestAnimationFrame ||
+            window.msCancelRequestAnimationFrame ||
+            clearTimeout
+  })();
+
+const canvas = new fabric.Canvas('c', {
+  isDrawingMode: true
+});
+canvas.freeDrawingBrush.width = 25;
+canvas.freeDrawingBrush.color = "rgba(255,0,0,.3)";
+
+canvas.setHeight(height);
+canvas.setWidth(width);
+
+const videoEl = document.getElementById('w');
+videoEl.height = height;
+videoEl.width = width;
+
+const video = new fabric.Image(videoEl);
+
+canvas.add(video);
+video.getElement().play();
+
+const playPauseButton = document.querySelector('.pause-and-draw-on-image');
+playPauseButton.addEventListener('click', (e) => {
+  console.log(videoEl.paused);
+  !videoEl.paused ? video.getElement().pause() : videoEl.pause();
+})
+
+fabric.util.requestAnimFrame(function render() {
+  canvas.renderAll();
+  fabric.util.requestAnimFrame(render);
+});
+
+/*
+let request;
+const render = () => {
+    canvas.renderAll();
+    request = fabric.util.requestAnimFrame(render);
+    let current_time = videoEl.currentTime;
+    if(current_time >= 1) {
+      console.log('ok');
+      //cancelRequestAnimFrame(request);
+      //videoEl.pause()
+    } 
+}
+
+//videoEl.play();
+fabric.util.requestAnimFrame(render);
+*/
 });
