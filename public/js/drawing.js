@@ -1,3 +1,10 @@
+/*
+File: drawing.js
+Toolbox with drawing utils and drawing history
+HIN, 10/24
+Fetch ctx from canvas and handle it ;)
+*/
+    
 const toolBox = document.querySelector('ul.toolbox');
 const modalContents = toolBox.querySelectorAll('span.toolbox-modal-content');
 
@@ -15,13 +22,16 @@ let strokeSize = 8;
  let i = -1;
 
 //-- toolbox actions with visual handling drawing history
+// remove all drawings from canvas
 const reset = () => { 
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height); 
     i = -1; 
 };
 
+// fill with selected color
 const fillColor = () => { const [r,g,b] = ctx.getImageData(0,0,1,1).data; };
 
+// undo drawings stepwise
 const doUndo = () => {
     if (i <= 0) return reset();
     i--;
@@ -29,6 +39,7 @@ const doUndo = () => {
     fillColor(); 
 };
 
+// redo deleted drawings stepwise
 const doRedo = () => {
     if (i >= history.length-1) return i = history.length-1;
     i++;
@@ -36,15 +47,17 @@ const doRedo = () => {
     fillColor();
 };
 
+// initiate drawing history
 const doInit = () => {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // start from the beginning
     history = [];
     i = -1; 
 };
 
+// save photo
 const doSave = () => doTakeAPhoto(); // same as take a photo functionality
 
-// Todo: BUG - possibility to open 2 tooltips at same time 
+// toolbox actions
 toolBox.addEventListener("click", (event) => {
 
     const action = event.target;

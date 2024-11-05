@@ -2,22 +2,20 @@ extends layouts/main-layout.pug
 
 block content
     div#view-container
-        div#main
+        div#video-container
             include includes/drawingTools.pug
-            // [canvas placeholder] [fix: don't create canvas on the fly]
-            canvas#c
-            video#w(autoplay, playsinline, webkit-playsinline, muted).d-none
+            video(autoplay, playsinline, webkit-playsinline, muted).d-none
+            canvas
             //img.screenshot-image.d-none
             div.video-overlay
             div.no-active-stream.d-none
                 p No active camera stream
 
-        div#controls
+        div#controls-container
             button.toggle-fs(title="Toggle Fullscreen", alt="Toggle Fullscreen", aria-pressed="false")
             button.photo-library(title="Photo library", alt="Photo library", onclick="window.location.href='/photos'")
             button.snapshot(title="Take a snapshot", alt="Take a snapshot")
             button.pause-and-draw-on-image(title="Pause and draw", alt="Pause and draw", aria-pressed="false")
 
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js", type="text/javascript", defer)
-    script(src="js/camera.js", type="text/javascript", defer)
+    script(src="js/camera.js", type="module", defer)
     script(src="js/drawing.js", type="text/javascript", defer)
