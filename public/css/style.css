@@ -5,10 +5,8 @@
 /* ********************* */
 #view-container {
   width: 100vw;
-  height: 100vh;
-
-  position: fixed;
-
+  /*height: 100vh;*/
+  position: relative;
 }
 
 /* Video- / Canvas - Container */
@@ -94,8 +92,6 @@
   #video-container, .video-overlay, .no-active-stream {
     width: 80vw;
     height: 100vh;
-  
-    overflow: hidden;
   }
   #controls-container {
     flex-direction: column;
