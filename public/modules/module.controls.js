@@ -1,15 +1,14 @@
 "use strict";
 
+import { video, canvas, width, height } from "/modules/module.renderingParams.js";
 import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
 
-const video = document.querySelector('video');
 const videoOverlay = document.querySelector('.video-overlay');
 const drawingToolBox = document.querySelector('ul.toolbox');
 const videoContainer = document.querySelector('#video-container');
 
 //-- Pause / play video
 const doPausePlayVideo = async () => {
-
     if (!video.paused) {
       video.pause();
       drawingToolBox.classList.add("show-tools");
@@ -28,8 +27,6 @@ const doPausePlayVideo = async () => {
   //-- Camera snapshot button (take a photo with and without draw lines)
   //-- use modern webP images with much lower size and same quality (https://developers.google.com/speed/webp?hl=de)
   const doTakeAPhoto = async () => {
-    const canvas = document.querySelector('canvas');
-  
     const element = canvas.toDataURL("image/webp");
    
     await uploadPhotoToFolder(element);
@@ -38,7 +35,14 @@ const doPausePlayVideo = async () => {
     showSnackBar('Photo uploaded.');
   };
   
-  /* If client requests fullscreen mode */
+  
+  document.addEventListener('fullscreenchange', () => {
+    let { width, height } = videoContainer.getBoundingClientRect();
+
+    canvas.width = width;
+    canvas.height = height;
+    
+  });
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
