@@ -35,14 +35,7 @@ const doPausePlayVideo = async () => {
     showSnackBar('Photo uploaded.');
   };
   
-  
-  document.addEventListener('fullscreenchange', () => {
-    let { width, height } = videoContainer.getBoundingClientRect();
-
-    canvas.width = width;
-    canvas.height = height;
-    
-  });
+  // full screen toggle
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
