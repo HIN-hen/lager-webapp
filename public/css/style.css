@@ -1,8 +1,13 @@
-@import './pico/pico.jade.min.css';
+/*@import './pico/pico.jade.min.css';*/
 
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 #view-container {
   width: 100vw;
   /*height: 100vh;*/
