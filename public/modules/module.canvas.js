@@ -1,7 +1,9 @@
 "use strict";
 
 import { width, height, video, canvas } from "/modules/module.renderingParams.js";
+import { snapshot } from "/modules/module.controlButtons.js";
 
+// some vars to work with ...
 let ctx;
 let strokeColor = "#00A870";
 let strokeSize = 8;
@@ -32,6 +34,8 @@ const initCanvasAndHistory = () => {
   i = -1;
   // on history index 0 hold blank canvas without drawing lines from context!
   history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  // ... and count up
+  i++
 }
 
 canvasInterval = window.setInterval(() => {
@@ -40,7 +44,7 @@ canvasInterval = window.setInterval(() => {
     
 video.onpause = () => { 
   clearInterval(canvasInterval);
-  initCanvasAndHistory();
+  initCanvasAndHistory(); // prepare canvas for drawing actions :)
 }
     
 video.onended = () => clearInterval(canvasInterval);
@@ -52,9 +56,9 @@ video.onplay = () => {
     }, 1000 / fps);
 };
 
-// draw on canvas, give user the drawing tools
-// adjust mouse pointer to actual viewport
-// with touch support for all mobile devices
+/* ********************************** */
+/* Canvas Drawing with touch support */
+/* **********************************/
 const drawOnCanvas = (canvas, ctx) => {
 
     let painting = false;
@@ -72,7 +76,7 @@ const drawOnCanvas = (canvas, ctx) => {
   
       // begins on history index 1
       history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-      i++;
+      i++; // ... and count up
     }
 
     // lets draw ...
@@ -110,44 +114,32 @@ const drawOnCanvas = (canvas, ctx) => {
 
 drawOnCanvas(canvas, ctx);
 
-//-- toolbox actions with visual handling drawing history
-// remove all drawings from canvas
-const reset = () => {
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height); 
-    i = -1; 
+/* *********************** */
+/* Canvas Drawing History */
+/* ***********************/
+const historyInit = () => {
+  history.length = 1;
+  ctx.putImageData(history[0], 0, 0); 
+  i = -1; 
 };
 
-// fill with selected color
-const fillColor = () => { const [r,g,b] = ctx.getImageData(0, 0, 1, 1).data; };
-
-// undo drawings stepwise
-const doUndo = () => {
-    //if (i <= 0) return reset();
+const historyStepUndo = () => {
+    if (i <= 0) { // history on count 0 or below? leave it ;)
+      return;
+    }
     i--;
     ctx.putImageData(history[i], 0, 0);
-    //fillColor(); 
 };
 
-// redo deleted drawings stepwise
-const doRedo = () => {
+const historyStepRedo = () => {
     if (i >= history.length-1) return i = history.length-1;
     i++;
     ctx.putImageData(history[i], 0, 0);
-    //fillColor();
 };
 
-// initiate drawing history
-const doInitHistory = () => {
-    //ctx.drawImage(video, 0, 0, canvas.width, canvas.height); // start from the beginning
-    ctx.putImageData(history[0], 0, 0);
-    //history = [];
-    i = -1; 
-};
-
-// save photo
-//const doSave = () => doTakeAPhoto; // same as take a photo functionality
-
-// toolbox actions
+/* ******************* */
+/* Toolbox Actions ****/
+/* *******************/
 toolBox.addEventListener("click", (event) => {
 
     const action = event.target;
@@ -159,10 +151,10 @@ toolBox.addEventListener("click", (event) => {
   
     action.matches('.tool-brush') && modal("brush");
     action.matches('.tool-palette') && modal("palette");
-    action.matches('.tool-undo') && doUndo();
-    action.matches('.tool-redo') && doRedo();
-    action.matches('.tool-init') && doInitHistory();
-    action.matches('.tool-save') && doTakeAPhoto();
+    action.matches('.tool-undo') && historyStepUndo();
+    action.matches('.tool-redo') && historyStepRedo();
+    action.matches('.tool-init') && historyInit();
+    action.matches('.tool-save') && snapshot.click();
 });
 
 //-- event listeners for changing stroke size and color
