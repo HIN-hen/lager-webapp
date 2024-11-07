@@ -6,7 +6,7 @@ import path from "node:path";
 
 const __uploadDir = path.resolve('uploads'); // resolve path to uploads folder
 
-// home 
+// home route
 const home = (req, res) => {
     res.render('camera');
 };

@@ -5,7 +5,7 @@ block content
         div#video-container
             include includes/drawingTools.pug
             video(autoplay, playsinline, webkit-playsinline, muted).d-none
-            canvas
+            canvas 
             //img.screenshot-image.d-none
             div.video-overlay
             div.no-active-stream.d-none
@@ -17,5 +17,5 @@ block content
             button.snapshot(title="Take a snapshot", alt="Take a snapshot")
             button.pause-and-draw-on-image(title="Pause and draw", alt="Pause and draw", aria-pressed="false")
 
-    script(src="js/camera.js", type="module", defer)
-    script(src="js/drawing.js", type="text/javascript", defer)
+    script(src="js/camera.js", type="module")
+    //script(src="js/drawing.js", type="module")

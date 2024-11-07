@@ -1,13 +1,14 @@
 "use strict";
 
 import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
-console.log(pauseAndDrawOnImage);
 
 const video = document.querySelector('video');
+const videoOverlay = document.querySelector('.video-overlay');
+const drawingToolBox = document.querySelector('ul.toolbox');
+const videoContainer = document.querySelector('#video-container');
 
 //-- Pause / play video
-// Todo: remove unnecessary code
-const doPausePlayVideo = () => {
+const doPausePlayVideo = async () => {
 
     if (!video.paused) {
       video.pause();
@@ -16,7 +17,7 @@ const doPausePlayVideo = () => {
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'true');
       showSnackBar('Drawing mode enabled.');
     } else {
-      video.play();
+      await video.play();
       drawingToolBox.classList.remove("show-tools");
       videoContainer.classList.remove('drawing-active');
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'false');
@@ -26,7 +27,6 @@ const doPausePlayVideo = () => {
   
   //-- Camera snapshot button (take a photo with and without draw lines)
   //-- use modern webP images with much lower size and same quality (https://developers.google.com/speed/webp?hl=de)
-  // Todo: Optimize handling!!!
   const doTakeAPhoto = async () => {
     const canvas = document.querySelector('canvas');
   
@@ -38,7 +38,7 @@ const doPausePlayVideo = () => {
     showSnackBar('Photo uploaded.');
   };
   
-  /* If client requests fullscreen mode (maybe better on mobile) */
+  /* If client requests fullscreen mode */
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()

@@ -2,9 +2,10 @@
 File: drawing.js
 Toolbox with drawing utils and drawing history
 HIN, 10/24
-Fetch ctx from canvas and handle it ;)
 */
-    
+
+//import { doTakeAPhoto } from '/modules/module.controls.js';
+
 const toolBox = document.querySelector('ul.toolbox');
 const modalContents = toolBox.querySelectorAll('span.toolbox-modal-content');
 
@@ -21,6 +22,8 @@ let strokeSize = 8;
  let history = [];
  let i = -1;
 
+ console.log(ctx);
+
 //-- toolbox actions with visual handling drawing history
 // remove all drawings from canvas
 const reset = () => { 
@@ -29,7 +32,7 @@ const reset = () => {
 };
 
 // fill with selected color
-const fillColor = () => { const [r,g,b] = ctx.getImageData(0,0,1,1).data; };
+const fillColor = () => { const [r,g,b] = ctx.getImageData(0, 0, 1, 1).data; };
 
 // undo drawings stepwise
 const doUndo = () => {
@@ -43,7 +46,7 @@ const doUndo = () => {
 const doRedo = () => {
     if (i >= history.length-1) return i = history.length-1;
     i++;
-    ctx.putImageData(history[i],0,0);
+    ctx.putImageData(history[i], 0, 0);
     fillColor();
 };
 
@@ -55,7 +58,7 @@ const doInit = () => {
 };
 
 // save photo
-const doSave = () => doTakeAPhoto(); // same as take a photo functionality
+//const doSave = () => doTakeAPhoto; // same as take a photo functionality
 
 // toolbox actions
 toolBox.addEventListener("click", (event) => {
@@ -72,7 +75,7 @@ toolBox.addEventListener("click", (event) => {
     action.matches('.tool-undo') && doUndo();
     action.matches('.tool-redo') && doRedo();
     action.matches('.tool-init') && doInit();
-    action.matches('.tool-save') && doSave();
+    action.matches('.tool-save') && doTakeAPhoto();
 });
 
 //-- event listeners for changing stroke size and color

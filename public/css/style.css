@@ -1,12 +1,9 @@
-@import './pico/pico.slate.min.css';
+@import './pico/pico.jade.min.css';
 
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
 #view-container {
-  /*
-  display: flex;
-  */
   width: 100vw;
   height: 100vh;
 
@@ -23,7 +20,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border: 2px solid orange;
   }
 
   .no-active-stream {
@@ -146,6 +142,7 @@
 }
 
 .drawing-active {
+  cursor: crosshair;
   border: 3px solid var(--pico-primary-background);
 }
 
@@ -256,19 +253,16 @@ img:not([src]) {
   visibility: hidden;
 }
 
-/* Draw interface (Toolbox)*/
+/* ************************* */
+/* Drawing Toolbox **********/
+/* *************************/
 ul.toolbox {
-  /*
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  */
   display: inline-flex;
   visibility: hidden;
   padding: 0;
-  position: fixed;
+  position: absolute;
   left: 50%;
-  bottom: 14.8%;
+  bottom: 0;
   z-index: 2;
   transform: translate(-50%, -50%);
   gap: .35em;
@@ -365,14 +359,12 @@ ul.toolbox {
 #snackbar {
   visibility: hidden;
   min-width: 250px;
-  margin-left: -125px;
   background-color: var(--pico-primary-background);
   text-align: center;
-  border-radius: 0.15em;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  left: 50%;
-  top: 3em;
+  left: .5em;
+  top: .5em;
   height: 2.5em;
   padding: 0.5em;
 
