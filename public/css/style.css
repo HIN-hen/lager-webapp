@@ -16,7 +16,6 @@
 
   canvas {
     width: 100%;
-    height: 100%;
     object-fit: cover;
   }
 
@@ -90,13 +89,13 @@
     flex-direction: row;
   }
   #video-container, .video-overlay, .no-active-stream {
-    width: 80vw;
-    height: 100vh;
+    width: 80%;
+    height: 100%;
   }
   #controls-container {
     flex-direction: column;
-    width: 20vw;
-    height: 100vh;
+    width: 20%;
+    height: 100%;
 
     right: 0;
   }
@@ -108,15 +107,13 @@
     flex-direction: column;
   }
   #video-container, .video-overlay, .no-active-stream {
-    width: 100vw;
-    height: 80vh;
-    z-index: 99;
-
+    width: 100%;
+    height: 80%;
   }
   #controls-container {
     flex-direction: row;
-    width: 100vw;
-    height: 20vh;
+    width: 100%;
+    height: 20%;
 
     bottom: 0;
   }
