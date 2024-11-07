@@ -55,7 +55,6 @@ video.onplay = () => {
 // draw on canvas, give user the drawing tools
 // adjust mouse pointer to actual viewport
 // with touch support for all mobile devices
-
 const drawOnCanvas = (canvas, ctx) => {
 
     let painting = false;
@@ -71,6 +70,7 @@ const drawOnCanvas = (canvas, ctx) => {
   
       if (!['mouseup','touchend'].includes(e.type)) return; // if not mouseup / touchend don't save in history! it ends here ;)
   
+      // begins on history index 1
       history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
       i++;
     }
