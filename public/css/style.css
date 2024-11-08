@@ -6,7 +6,7 @@
 #view-container {
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  position: fixed; /* ENDED HERE BEFORE IT WAS relative !!! */
 }
 
 /* Video- / Canvas - Container */
@@ -352,19 +352,20 @@ ul.toolbox {
 /* ***************************** */
 #snackbar {
   visibility: hidden;
-  min-width: 250px;
+  width: inherit;
   background-color: var(--pico-primary-background);
   text-align: center;
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  left: .5em;
-  top: .5em;
+  left: 0;
+  top: 0;
+  opacity: 0.85;
   height: 2.5em;
   padding: 0.5em;
 
   p {
     color: white;
-    font-size: 1em;
+    font-size: 1.2em;
   }
 
   &.show {
@@ -391,6 +392,5 @@ ul.toolbox {
       from { bottom: 30px; opacity: 1; }
       to { bottom: 0; opacity: 0; }
     }
-
   }
 }

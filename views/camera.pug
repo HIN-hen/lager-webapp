@@ -3,6 +3,7 @@ extends layouts/main-layout.pug
 block content
     div#view-container
         div#video-container
+            include includes/snackbar.pug
             include includes/drawingTools.pug
             video(autoplay, playsinline, webkit-playsinline, muted).d-none
             canvas 
