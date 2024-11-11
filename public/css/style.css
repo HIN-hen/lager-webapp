@@ -6,7 +6,7 @@
 #view-container {
   width: 100vw;
   height: 100vh;
-  position: fixed; /* ENDED HERE BEFORE IT WAS relative !!! */
+  position: fixed;
 }
 
 /* Video- / Canvas - Container */

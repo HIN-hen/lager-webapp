@@ -58,7 +58,8 @@ video.onplay = () => {
 
 /* ********************************** */
 /* Canvas Drawing with touch support */
-/* **********************************/
+/* Keep it simple ;) ************** */
+/* *********************************/
 const drawOnCanvas = (canvas, ctx) => {
 
     let painting = false;
@@ -72,7 +73,8 @@ const drawOnCanvas = (canvas, ctx) => {
       painting = false;
       ctx.beginPath();
   
-      if (!['mouseup','touchend'].includes(e.type)) return; // if not mouseup / touchend don't save in history! it ends here ;)
+      // if not mouseup / touchend or mouseout don't save in history! it ends here ;)
+      if (!['mouseup','touchend','mouseout'].includes(e.type)) return;
   
       // begins on history index 1
       history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
@@ -100,6 +102,7 @@ const drawOnCanvas = (canvas, ctx) => {
     canvas.addEventListener("touchstart", startPos, false);
     canvas.addEventListener("mouseup", endPos, false);
     canvas.addEventListener("touchend", endPos, false);
+    canvas.addEventListener("mouseout", endPos, false); // stop if drawing out of canvas area!
     canvas.addEventListener("mousemove", draw, false);
     canvas.addEventListener("touchmove", (e) => {
       const touch = e.touches[0];

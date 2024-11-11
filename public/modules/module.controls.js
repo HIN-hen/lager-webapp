@@ -1,6 +1,6 @@
 "use strict";
 
-import { video, canvas, width, height } from "/modules/module.renderingParams.js";
+import { video, canvas } from "/modules/module.renderingParams.js";
 import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
 
 const videoOverlay = document.querySelector('.video-overlay');
@@ -45,7 +45,7 @@ const doPausePlayVideo = async () => {
           .then(res => toggleFs.setAttribute('aria-pressed', false));
     }
   };
-  
+
   // image upload
   const uploadPhotoToFolder = async (photo) => {
     const strPhoto = await photo.replace(/^data:image\/[a-z]+;base64,/, "");
