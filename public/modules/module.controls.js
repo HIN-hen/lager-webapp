@@ -14,13 +14,13 @@ const doPausePlayVideo = async () => {
       drawingToolBox.classList.add("show-tools");
       videoContainer.classList.add('drawing-active');
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'true');
-      showSnackBar('Drawing mode enabled.');
+      showSnackBar('Drawing mode enabled');
     } else {
       await video.play();
       drawingToolBox.classList.remove("show-tools");
       videoContainer.classList.remove('drawing-active');
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'false');
-      showSnackBar('Drawing mode disabled.');
+      showSnackBar('Drawing mode disabled');
     }
   };
   
@@ -32,9 +32,10 @@ const doPausePlayVideo = async () => {
     await uploadPhotoToFolder(element);
     await feedbackPhotoTaken();
   
-    showSnackBar('Photo uploaded.');
+    showSnackBar('Photo uploaded');
   };
   
+
   // full screen toggle
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {

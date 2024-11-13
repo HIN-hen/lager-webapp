@@ -29,14 +29,16 @@ ctx = canvas.getContext('2d', {
      
 const drawIt = () => ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-const initCanvasAndHistory = () => {
+// init canvas, drawing and history at once
+const initCanvasDrawingAndHistory = () => {
   history = [];
   i = -1;
   // on history index 0 hold blank canvas without drawing lines from context!
   history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
   // ... and count up
   i++
-}
+  drawOnCanvas();
+};
 
 canvasInterval = window.setInterval(() => {
     drawIt();
@@ -44,23 +46,29 @@ canvasInterval = window.setInterval(() => {
     
 video.onpause = () => { 
   clearInterval(canvasInterval);
-  initCanvasAndHistory(); // prepare canvas for drawing actions :)
-}
+  initCanvasDrawingAndHistory(); // prepare canvas for drawing actions :)
+};
     
 video.onended = () => clearInterval(canvasInterval);
         
 video.onplay = () => {
-    clearInterval(canvasInterval);
-    canvasInterval = window.setInterval(() => {
+  clearInterval(canvasInterval);
+  canvasInterval = window.setInterval(() => {
     drawIt();
-    }, 1000 / fps);
+  }, 1000 / fps);
 };
 
 /* ********************************** */
 /* Canvas Drawing with touch support */
 /* Keep it simple ;) ************** */
 /* *********************************/
-const drawOnCanvas = (canvas, ctx) => {
+const drawOnCanvas = () => {
+
+    // Abort Controller
+    const controller = new AbortController();
+    const { signal } = controller;
+    canvas.removeEventListener("mouseout", endPos, { signal });
+    controller.abort();
 
     let painting = false;
 
@@ -68,17 +76,17 @@ const drawOnCanvas = (canvas, ctx) => {
       painting = true;
       draw(e);
     }
-  
+
     const endPos = (e) => {
       painting = false;
       ctx.beginPath();
-  
+
       // if not mouseup / touchend or mouseout don't save in history! it ends here ;)
       if (!['mouseup','touchend','mouseout'].includes(e.type)) return;
-  
+
       // begins on history index 1
       history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-      i++; // ... and count up
+      i++; // ... and count up      
     }
 
     // lets draw ...
@@ -96,9 +104,9 @@ const drawOnCanvas = (canvas, ctx) => {
       ctx.beginPath();
       ctx.moveTo(e.clientX, e.clientY);
     }
-  
-    // mouse / touch event listeners on canvas
-    canvas.addEventListener("mousedown", startPos, false);
+
+    /* Event Listeners */
+    const start = canvas.addEventListener("mousedown", startPos, false);
     canvas.addEventListener("touchstart", startPos, false);
     canvas.addEventListener("mouseup", endPos, false);
     canvas.addEventListener("touchend", endPos, false);
@@ -112,10 +120,7 @@ const drawOnCanvas = (canvas, ctx) => {
       });
       draw(mouseEvent);
     }, false);
-
 };
-
-drawOnCanvas(canvas, ctx);
 
 /* *********************** */
 /* Canvas Drawing History */
@@ -127,9 +132,7 @@ const historyInit = () => {
 };
 
 const historyStepUndo = () => {
-    if (i <= 0) { // history on count 0 or below? leave it ;)
-      return;
-    }
+    if (i <= 0) return; // history on count 0 or below? leave it ;)
     i--;
     ctx.putImageData(history[i], 0, 0);
 };
