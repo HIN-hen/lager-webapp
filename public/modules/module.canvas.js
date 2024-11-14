@@ -37,7 +37,7 @@ const initCanvasDrawingAndHistory = () => {
   history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
   // ... and count up
   i++
-  drawOnCanvas();
+  //drawOnCanvas();
 };
 
 canvasInterval = window.setInterval(() => {
@@ -45,32 +45,48 @@ canvasInterval = window.setInterval(() => {
 }, 1000 / fps);
     
 video.onpause = () => { 
-  clearInterval(canvasInterval);
   initCanvasDrawingAndHistory(); // prepare canvas for drawing actions :)
+  console.log("onPause: ", history.length);
+
+    canvas.addEventListener("mousedown", startPos, false);
+    canvas.addEventListener("touchstart", startPos, false);
+    canvas.addEventListener("mouseup", endPos, false);
+    canvas.addEventListener("touchend", endPos, false);
+    canvas.addEventListener("mouseout", draw, false); // stop if drawing out of canvas area!
+    canvas.addEventListener("mousemove", draw, false);
+    canvas.addEventListener("touchmove", (e) => {
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent("mousemove", {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      draw(mouseEvent);
+    }, false);
+    
+    clearInterval(canvasInterval);
 };
     
 video.onended = () => clearInterval(canvasInterval);
         
 video.onplay = () => {
+  console.log("onPlay: ", history.length);
+ 
+    canvas.removeEventListener("mousedown", startPos);
+    canvas.removeEventListener("touchstart", startPos);
+    canvas.removeEventListener("mouseup", endPos);
+    canvas.removeEventListener("touchend", endPos);
+    canvas.removeEventListener("mouseout", draw);
+    canvas.removeEventListener("mousemove", draw);
+    canvas.removeEventListener("touchmove", draw);
+
   clearInterval(canvasInterval);
   canvasInterval = window.setInterval(() => {
     drawIt();
   }, 1000 / fps);
 };
 
-/* ********************************** */
-/* Canvas Drawing with touch support */
-/* Keep it simple ;) ************** */
-/* *********************************/
-const drawOnCanvas = () => {
-
-    // Abort Controller
-    const controller = new AbortController();
-    const { signal } = controller;
-    canvas.removeEventListener("mouseout", endPos, { signal });
-    controller.abort();
-
-    let painting = false;
+/* TESTE */
+let painting = false;
 
     const startPos = (e) => { 
       painting = true;
@@ -83,10 +99,70 @@ const drawOnCanvas = () => {
 
       // if not mouseup / touchend or mouseout don't save in history! it ends here ;)
       if (!['mouseup','touchend','mouseout'].includes(e.type)) return;
+  
+      // begins on history index 1
+      history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      i++; // ... and count up  
+    };
+
+    // lets draw ...
+    const draw = (e) => {
+      if (!painting) {
+        return;
+      }
+      if (e.type === 'mouseout') { // catch on drawing mouse out events to prevent mouse drawing bug.
+        endPos(e);
+        alert("Drawing outside detected.");
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      ctx.lineWidth = strokeSize;
+      ctx.lineCap = "round";
+      ctx.lineTo(e.clientX, e.clientY);
+      ctx.stroke();
+      ctx.strokeStyle = strokeColor;
+      ctx.beginPath();
+      ctx.moveTo(e.clientX, e.clientY);
+    };
+
+/* ********************************** */
+/* Canvas Drawing with touch support */
+/* Keep it simple ;) ************** */
+/* *********************************/
+/*
+const drawOnCanvas = () => {
+
+    let painting = false;
+
+    const startPos = (e) => { 
+      painting = true;
+      draw(e);
+    }
+
+    const endPos = (e) => {
+    
+      const isMouseOutOfCanvas = e.type === 'mouseout';
+      
+      if (painting && isMouseOutOfCanvas) {
+        console.log('painting and mouse out...');
+        // begins on history index 1
+        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        i++; // ... and count up  
+      }
+
+      painting = false;
+      ctx.beginPath();
+
+      // if not mouseup / touchend or mouseout don't save in history! it ends here ;)
+      //if (!['mouseup','touchend','mouseout'].includes(e.type)) return;
+      if (!['mouseup','touchend'].includes(e.type)) return;
 
       // begins on history index 1
       history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-      i++; // ... and count up      
+      i++; // ... and count up   
+      
+      console.log(history.length);
     }
 
     // lets draw ...
@@ -105,8 +181,7 @@ const drawOnCanvas = () => {
       ctx.moveTo(e.clientX, e.clientY);
     }
 
-    /* Event Listeners */
-    const start = canvas.addEventListener("mousedown", startPos, false);
+    canvas.addEventListener("mousedown", startPos, false);
     canvas.addEventListener("touchstart", startPos, false);
     canvas.addEventListener("mouseup", endPos, false);
     canvas.addEventListener("touchend", endPos, false);
@@ -121,6 +196,7 @@ const drawOnCanvas = () => {
       draw(mouseEvent);
     }, false);
 };
+*/
 
 /* *********************** */
 /* Canvas Drawing History */
@@ -153,7 +229,7 @@ toolBox.addEventListener("click", (event) => {
     const modal = (type) => {
        const found = [...modalContents].find(el => el.id === type);
        found.classList.toggle('d-none');
-    }
+    };
   
     action.matches('.tool-brush') && modal("brush");
     action.matches('.tool-palette') && modal("palette");
