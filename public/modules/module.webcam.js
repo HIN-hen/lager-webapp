@@ -1,7 +1,7 @@
 "use strict";
 
 import { width, height, video, noActiveStream } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
 
 // set video constraints
 const constraints = {
@@ -60,6 +60,9 @@ const activateWebcam = async () => {
     } else {
       console.log('init application -> no active camera stream') 
       noActiveStream.classList.remove('d-none');
+      pauseAndDrawOnImage.setAttribute('disabled', true);
+      toggleFs.setAttribute('disabled', true);
+      snapshot.setAttribute('disabled', true);
     }
   };
   
