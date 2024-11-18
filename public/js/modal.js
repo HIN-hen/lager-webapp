@@ -3,7 +3,7 @@ const isOpenClass = "modal-is-open";
 const openingClass = "modal-is-opening";
 const closingClass = "modal-is-closing";
 const scrollbarWidthCssVar = "--pico-scrollbar-width";
-const animationDuration = 400; // ms
+const animationDuration = 400; // milliseconds
 const title = document.querySelector('.title');
 const photo = document.querySelector('.photo');
 const download = document.querySelector('.download-image');
@@ -30,16 +30,31 @@ const toggleModal = (event) => {
 };
 
 //-- Create dynamic modal content
-const createContent = () => {
+const createContent = async () => { 
+
+    // not needed: const getBase64StringFromDataURL = (dataURL) => dataURL.replace('data:', '').replace(/^.+,/, '');
+
     if (modalTarget === 'confirm-modal') {
         titleConfirm.innerHTML = modalData.title; // title
         contentConfirm.innerHTML = modalData.content; // content
     }
     if (modalTarget === 'modal') {
-        title.innerHTML = modalData.title; // title
-        photo.setAttribute('title', `${modalData.title}`); // image title
-        photo.setAttribute('src', `${modalData.src}`) // image source
-        download.setAttribute('href', `${modalData.src}`); // download image
+        
+        fetch(modalData.src) // needed to make image email friendly.
+            .then((res) => res.blob())
+            .then((blob) => {
+                // Read the Blob as DataURL using the FileReader API
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    
+                    title.innerHTML = modalData.title; // title
+                    photo.setAttribute('title', `${modalData.title}`); // image title
+                    photo.setAttribute('src', `${reader.result}`) // image source (convert to base64 for email copy)
+            
+                    download.setAttribute('href', `${modalData.src}`); // download image
+                }
+                reader.readAsDataURL(blob);
+        });   
     }
 };
 

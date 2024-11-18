@@ -7,6 +7,8 @@ const tableView = document.querySelector('#tableView');
 const allActualPhotos = document.querySelectorAll('#tableView img');
 const viewPort = document.getElementById('viewPort');
 let viewPortContent = null;
+const monthYearSelector = document.getElementById('monthYearSelector');
+let lastMonthToSelect = null;
 
 //-- get all photos without url (only the pure image file)
 const getAllPhotosAsArrayWithoutUrl = () => {
@@ -18,7 +20,6 @@ const getAllPhotosAsArrayWithoutUrl = () => {
 /* Date (month/year/ selector) */
 /* Autofill select options     */
 /* *************************** */
-const monthYearSelector = document.getElementById('monthYearSelector');
 const getAllAvailableDates = () => {
     const allAvDates = [];
     for (let i = 0; i < viewPortContent.length; i++) {
@@ -33,6 +34,8 @@ const getAllAvailableDates = () => {
         newOption.text = el;
         monthYearSelector.appendChild(newOption);
     });
+
+    lastMonthToSelect = removeDuplicates[0];
 };
 
 /* ********************************** */
@@ -147,7 +150,7 @@ viewMode.addEventListener('change', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
     localStorageViewMode !== null && localStorageViewMode === 'mode-table-view' ? setTableViewMode() : setGridViewMode();
     getAllAvailableDates();
-    monthYearSelector.value = monthYearLocalStorage;
+    monthYearSelector.value = monthYearLocalStorage || lastMonthToSelect; // if no value set actual month as default fallback.
     monthYearSelector.dispatchEvent(new Event('change'));
 });
 

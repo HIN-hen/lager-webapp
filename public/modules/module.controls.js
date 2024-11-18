@@ -28,7 +28,7 @@ const doPausePlayVideo = async () => {
   //-- use modern webP images with much lower size and same quality (https://developers.google.com/speed/webp?hl=de)
   const doTakeAPhoto = async () => {
     const element = canvas.toDataURL("image/webp");
-   
+    
     await uploadPhotoToFolder(element);
     await feedbackPhotoTaken();
   
