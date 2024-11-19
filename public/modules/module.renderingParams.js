@@ -16,9 +16,22 @@ const resizeObserver = new ResizeObserver((entries) => {
     console.log(width, height);
     canvas.height = height;
     canvas.width = width;
-    alert('Resized...');
+    alert("resized ... changed view mode.");
 });
-resizeObserver.observe(videoContainer);
+
+// Watch viewport changes mobile portrait <-> landscape mode
+window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+    console.log(e);
+    const portrait = e.matches;
+
+    if (portrait) {
+        // do something
+        resizeObserver.observe(videoContainer);
+    } else {
+        // do something else
+        resizeObserver.observe(videoContainer);
+    }
+});
 
 console.log(canvas);
 console.log("cWidth: " + canvas.width, "cHeight: " + canvas.height);
