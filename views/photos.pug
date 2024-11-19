@@ -9,8 +9,9 @@ block content
         article
             header
                 div.header
-                    //div Photo Uploads
-                    div
+                    //div Photo Uploads 
+                    div#backAndMonthYearSelector
+                        button.camera(title="Home (Camera)", alt="Home (Camera)", onclick="window.location.href='/'")
                         select#monthYearSelector(name="month-year-selector", aria-label="select")
                             option(value="show_all") Show all
 

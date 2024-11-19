@@ -50,7 +50,6 @@ const createContent = async () => {
                     title.innerHTML = modalData.title; // title
                     photo.setAttribute('title', `${modalData.title}`); // image title
                     photo.setAttribute('src', `${reader.result}`) // image source (convert to base64 for email copy)
-            
                     download.setAttribute('href', `${modalData.src}`); // download image
                 }
                 reader.readAsDataURL(blob);

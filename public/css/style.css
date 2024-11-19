@@ -143,6 +143,22 @@
 /* ************************ */
 /* Photos (/photos) ****** */
 /* ********************** */
+#backAndMonthYearSelector {
+
+  display: inline-flex; 
+  gap: .6em;
+
+  button {
+
+    background-color: transparent;
+
+    &.camera {
+      background-image: url("../images/photos/camera.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
 #monthYearSelector {
   margin: 0;
   padding-top: .2em;
