@@ -8,41 +8,6 @@ const noActiveStream = document.querySelector('.no-active-stream');
 // Adapted width, height of video, canvas
 const videoContainer = document.querySelector('#video-container');
 let { width, height } = videoContainer.getBoundingClientRect();
-console.log("orWidth: " + width, ", orHeight: " + height);
-
-const resizeObserver = new ResizeObserver((entries) => {
-    const elementSize = entries[0];
-    const { height, width } = elementSize.contentRect;
-    canvas.height = height;
-    canvas.width = width;
-    alert("resized ... changed view mode.");
-});
-
-
-// Detect whether device supports orientationchange event, otherwise fall back to
-// the resize event.
-let supportsOrientationChange = "onorientationchange" in window,
-    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
-
-window.addEventListener(orientationEvent, () => {
-    alert('HOLY ROTATING SCREENS BATMAN: ' + screen.orientation.type + " " + screen.width);
-}, false);
-
-/*
-// Watch viewport changes mobile portrait <-> landscape mode
-window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
-    console.log(e);
-    const portrait = e.matches;
-
-    if (portrait) {
-        // do something
-        resizeObserver.observe(videoContainer);
-    } else {
-        // do something else
-        resizeObserver.observe(videoContainer);
-    }
-});
-*/
 
 export { 
     width, 
