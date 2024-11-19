@@ -184,7 +184,6 @@
     }
     input[type=radio]:checked {
       border-width: .05em;
-      background-color: var(--pico-primary-background);
     }
 
   }
@@ -241,6 +240,9 @@ table#tableView img {
   cursor: pointer;
 }
 /* Modals */
+.modal-is-open .photo {
+  cursor: pointer;
+}
 .header {
   display: flex;
   justify-content: space-between;
