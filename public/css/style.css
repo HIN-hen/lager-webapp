@@ -163,10 +163,13 @@
 .header {
 
   #viewMode {
-    background-repeat: no-repeat;
-    background-position: center center;
-    font-size: 1.6em;
-    background-size: .9em;
+    
+    input {
+      background-repeat: no-repeat;
+      background-position: center center;
+      font-size: 1.6em;
+      background-size: .9em;
+    }
 
     #mode-grid-view {
       background-image: url("../images/photos/grid.svg");
@@ -181,6 +184,7 @@
     }
     input[type=radio]:checked {
       border-width: .05em;
+      background-color: var(--pico-primary-background);
     }
 
   }
