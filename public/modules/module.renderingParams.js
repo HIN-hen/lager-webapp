@@ -18,6 +18,17 @@ const resizeObserver = new ResizeObserver((entries) => {
     alert("resized ... changed view mode.");
 });
 
+
+// Detect whether device supports orientationchange event, otherwise fall back to
+// the resize event.
+let supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+
+window.addEventListener(orientationEvent, () => {
+    alert('HOLY ROTATING SCREENS BATMAN: ' + screen.orientation.type + " " + screen.width);
+}, false);
+
+/*
 // Watch viewport changes mobile portrait <-> landscape mode
 window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
     console.log(e);
@@ -31,6 +42,7 @@ window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
         resizeObserver.observe(videoContainer);
     }
 });
+*/
 
 export { 
     width, 
