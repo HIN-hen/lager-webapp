@@ -16,6 +16,7 @@ const resizeObserver = new ResizeObserver((entries) => {
     console.log(width, height);
     canvas.height = height;
     canvas.width = width;
+    alert('Resized...');
 });
 resizeObserver.observe(videoContainer);
 
