@@ -227,6 +227,10 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.5rem;
 
+  article {
+    font-size: .8em;
+  }
+
   footer {
     display: flex;
     justify-content: space-between;
@@ -240,6 +244,11 @@ table#tableView img {
   cursor: pointer;
 }
 /* Modals */
+dialog { /* adapt modal body to image width */
+  article {
+    width: auto;
+  }
+}
 .modal-is-open .photo {
   cursor: pointer;
 }
