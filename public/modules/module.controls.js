@@ -35,9 +35,23 @@ const doPausePlayVideo = async () => {
     showSnackBar('Photo uploaded');
   };
   
+  // Todo: Necessary ???
+  // full screen toggle (ESC beachten); Bug: deleted canvas on resize.
+  const resizeObserver = new ResizeObserver((item) => {
+    if (video.paused) {
+      video.play();
+    }
+    //pauseAndDrawOnImage.setAttribute('aria-pressed', video.paused)
+    const element = item[0];
+    const { height, width } = element.contentRect;
+    canvas.height = height;
+    canvas.width = width;
+  });
 
-  // full screen toggle
+  // Toggle Fullscreen (Todo: keydown Escape)
   const doToggleFullScreen = () => {
+    // use resize observer only on fullscreen
+    resizeObserver.observe(videoContainer);
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
           .then(res => toggleFs.setAttribute('aria-pressed', true));

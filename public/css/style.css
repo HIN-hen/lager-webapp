@@ -224,8 +224,9 @@
   }
 }
 #gridView {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+  justify-content: center;
+  gap: .5rem;
 
   article {
     font-size: .8em;
@@ -233,8 +234,14 @@
 
   footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: end;
+    gap: .9em;
+
+    .icon {
+      padding: 1em;
+      border: 1px solid var(--pico-primary-background);
+      border-radius: 50%;
+    }
   }
 }
 table#tableView img {

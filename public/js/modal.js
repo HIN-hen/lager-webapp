@@ -50,7 +50,7 @@ const createContent = async () => {
                     title.innerHTML = modalData.title; // title
                     photo.setAttribute('title', `${modalData.title}`); // image title
                     photo.setAttribute('src', `${reader.result}`) // image source (convert to base64 for email copy)
-                    download.setAttribute('href', `${modalData.src}`); // download image
+                    //download.setAttribute('href', `${modalData.src}`); // download image
                 }
                 reader.readAsDataURL(blob);
         });   
@@ -96,7 +96,7 @@ document.addEventListener("click", (event) => {
     !isClickInside && closeModal(visibleModal);
 });
 
-// Close with Esc key
+// Close with Esc key (modal and fullscreen)
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && visibleModal) {
         closeModal(visibleModal);

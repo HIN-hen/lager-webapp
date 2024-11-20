@@ -6,7 +6,10 @@ dialog#modal
             p.title
         p
             img.photo
-        footer
+        footer 
+            div#actions 
+                span Drag/drop image from here if needed.
+        //footer
             div#actions
                 a.download-image(download) Download
                 button.btn-close(data-target="modal", onclick="toggleModal(event)") Close

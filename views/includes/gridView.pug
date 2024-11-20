@@ -3,11 +3,11 @@ div#gridView.grid
         article(id=`${key + '-' + (photo.name.split(',', 1))}`)
             header= photo.name
             p
-                img.lazy(src=photo.image, data-src=photo.image, title=photo.name, alt=photo.name, data-title=photo.name data-target="modal", onclick='toggleModal(event)')
+                img.lazy(src=photo.image, data-src=photo.image, title=photo.name, alt=photo.name, data-title=photo.name, data-target="modal", onclick='toggleModal(event)')
             footer
                 a.del-single.icon.trash(title='Delete', onclick='deletePhoto("' + [key, photo.image] + '")')
-                a.icon.download(href=photo.image, title='Download', download)
-                a.icon.hand-eye(title=photo.name, data-image=photo.image, data-title=photo.name data-target="modal", onclick='toggleModal(event)')
+                a.icon.download(href=photo.image, id=photo.image, title='Download', download, onclick='formatDateToDownloadDesignation(event)')
+                a.icon.hand-eye(title=photo.name, data-image=photo.image, data-title=photo.name, data-target="modal", onclick='toggleModal(event)')
     else
         article
             p NO PHOTOS UPLOADED !
