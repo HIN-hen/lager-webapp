@@ -1,7 +1,7 @@
 "use strict";
 
-import { width, height, video, canvas, videoContainer } from "/modules/module.renderingParams.js";
-import { snapshot } from "/modules/module.controlButtons.js";
+import { video, canvas, videoContainer } from "/modules/module.renderingParams.js";
+import { pauseAndDrawOnImage, snapshot } from "/modules/module.controlButtons.js";
 
 let ctx;
 let strokeColor = "#00A870";
@@ -14,21 +14,6 @@ const modalContents = toolBox.querySelectorAll('span.toolbox-modal-content');
 
 const rangeSelectorStrokeSize = toolBox.querySelector('input#stroke-size');
 const pickerSelectorStrokeColor = toolBox.querySelector('input#stroke-color');
-
-// detect changes of dimensions from videoContainer to adapt canvas to new dimensions
-// blockSize = boxes with a horizontal writing mode it's vertical dimension or height
-// inlineSize = boxes with a horizontal writing mode it's horizontal dimension or width
-const resizeObserver = new ResizeObserver((entries) => {
-  const entry = entries[0];
-  
-  const { clientWidth, clientHeight } = entries[0].target;
-  canvas.width = clientWidth;
-  canvas.height = clientHeight;
-  canvas.style = "border: 3px solid red;"
-
-});
-
-resizeObserver.observe(videoContainer);
 
 //canvas.width = width;
 //canvas.height = height;
@@ -187,3 +172,18 @@ rangeSelectorStrokeSize.addEventListener("change", (event) => {
 pickerSelectorStrokeColor.addEventListener("change", (event) => {
     strokeColor = event.target.value;
 });
+
+// detect changes of dimensions from videoContainer to adapt canvas to new dimensions
+const resizeObserver = new ResizeObserver((entries) => {
+  video.play(); // keep canvas alive on resizing via playing video to get frames!
+  pauseAndDrawOnImage.setAttribute('aria-pressed', false);
+
+  const entry = entries[0];
+  
+  const { clientWidth, clientHeight } = entry.target;
+
+  canvas.width = clientWidth;
+  canvas.height = clientHeight;
+});
+
+resizeObserver.observe(videoContainer);

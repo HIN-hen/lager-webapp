@@ -35,7 +35,7 @@ const doPausePlayVideo = async () => {
     showSnackBar('Photo uploaded');
   };
   
-  // Toggle Fullscreen (Todo: keydown Escape)
+  // Toggle Fullscreen
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
