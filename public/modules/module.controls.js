@@ -1,7 +1,7 @@
 "use strict";
 
 import { video, canvas } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot, /*toggleFs*/ } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
 
 const videoOverlay = document.querySelector('.video-overlay');
 const drawingToolBox = document.querySelector('ul.toolbox');
@@ -76,4 +76,4 @@ const doPausePlayVideo = async () => {
 /* Controls Buttons click events */
 pauseAndDrawOnImage.onclick = doPausePlayVideo;
 snapshot.onclick = doTakeAPhoto;
-//toggleFs.onclick = doToggleFullScreen;
+toggleFs.onclick = doToggleFullScreen;
