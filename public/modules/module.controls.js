@@ -1,7 +1,7 @@
 "use strict";
 
 import { video, canvas } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, /*toggleFs*/ } from "/modules/module.controlButtons.js";
 
 const videoOverlay = document.querySelector('.video-overlay');
 const drawingToolBox = document.querySelector('ul.toolbox');
@@ -35,23 +35,8 @@ const doPausePlayVideo = async () => {
     showSnackBar('Photo uploaded');
   };
   
-  // Todo: Necessary ???
-  // full screen toggle (ESC beachten); Bug: deleted canvas on resize.
-  const resizeObserver = new ResizeObserver((item) => {
-    if (video.paused) {
-      video.play();
-    }
-    //pauseAndDrawOnImage.setAttribute('aria-pressed', video.paused)
-    const element = item[0];
-    const { height, width } = element.contentRect;
-    canvas.height = height;
-    canvas.width = width;
-  });
-
   // Toggle Fullscreen (Todo: keydown Escape)
   const doToggleFullScreen = () => {
-    // use resize observer only on fullscreen
-    resizeObserver.observe(videoContainer);
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
           .then(res => toggleFs.setAttribute('aria-pressed', true));
@@ -91,4 +76,4 @@ const doPausePlayVideo = async () => {
 /* Controls Buttons click events */
 pauseAndDrawOnImage.onclick = doPausePlayVideo;
 snapshot.onclick = doTakeAPhoto;
-toggleFs.onclick = doToggleFullScreen;
+//toggleFs.onclick = doToggleFullScreen;

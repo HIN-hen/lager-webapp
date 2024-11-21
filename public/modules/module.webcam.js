@@ -1,7 +1,7 @@
 "use strict";
 
 import { width, height, video, noActiveStream } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, /*toggleFs*/ } from "/modules/module.controlButtons.js";
 
 // set video constraints
 const constraints = {
@@ -53,7 +53,7 @@ const activateWebcam = async () => {
     if (hasVideoDevices.length > 0 && (hasMediaStream && 'id' in hasMediaStream)) {
       video.srcObject = hasMediaStream;
       video.onloadedmetadata = () => {
-        video.play(); // all ok ... play video stream
+        video.play();
       }
       pauseAndDrawOnImage.classList.remove('d-none');
       snapshot.classList.remove('d-none');
@@ -61,7 +61,7 @@ const activateWebcam = async () => {
       console.log('init application -> no active camera stream') 
       noActiveStream.classList.remove('d-none');
       pauseAndDrawOnImage.setAttribute('disabled', true);
-      toggleFs.setAttribute('disabled', true);
+      //toggleFs.setAttribute('disabled', true);
       snapshot.setAttribute('disabled', true);
     }
   };

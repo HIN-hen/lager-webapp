@@ -3,7 +3,6 @@
 import { width, height, video, canvas } from "/modules/module.renderingParams.js";
 import { snapshot } from "/modules/module.controlButtons.js";
 
-// some vars to work with ...
 let ctx;
 let strokeColor = "#00A870";
 let strokeSize = 8;
@@ -45,8 +44,8 @@ canvasInterval = window.setInterval(() => {
 }, 1000 / fps);
     
 video.onpause = () => { 
-  initCanvasDrawingAndHistory(); // prepare canvas for drawing actions :)
-  console.log("onPause: ", history.length);
+
+    initCanvasDrawingAndHistory(); // prepare canvas for drawing actions :)
 
     canvas.addEventListener("mousedown", startPos, false);
     canvas.addEventListener("touchstart", startPos, false);
@@ -69,8 +68,7 @@ video.onpause = () => {
 video.onended = () => clearInterval(canvasInterval);
         
 video.onplay = () => {
-  console.log("onPlay: ", history.length);
- 
+    // important: remove all listeners to prevent performance issues!
     canvas.removeEventListener("mousedown", startPos);
     canvas.removeEventListener("touchstart", startPos);
     canvas.removeEventListener("mouseup", endPos);
@@ -85,7 +83,6 @@ video.onplay = () => {
   }, 1000 / fps);
 };
 
-/* TESTE */
 let painting = false;
 
     const startPos = (e) => { 
@@ -125,78 +122,6 @@ let painting = false;
       ctx.beginPath();
       ctx.moveTo(e.clientX, e.clientY);
     };
-
-/* ********************************** */
-/* Canvas Drawing with touch support */
-/* Keep it simple ;) ************** */
-/* *********************************/
-/*
-const drawOnCanvas = () => {
-
-    let painting = false;
-
-    const startPos = (e) => { 
-      painting = true;
-      draw(e);
-    }
-
-    const endPos = (e) => {
-    
-      const isMouseOutOfCanvas = e.type === 'mouseout';
-      
-      if (painting && isMouseOutOfCanvas) {
-        console.log('painting and mouse out...');
-        // begins on history index 1
-        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-        i++; // ... and count up  
-      }
-
-      painting = false;
-      ctx.beginPath();
-
-      // if not mouseup / touchend or mouseout don't save in history! it ends here ;)
-      //if (!['mouseup','touchend','mouseout'].includes(e.type)) return;
-      if (!['mouseup','touchend'].includes(e.type)) return;
-
-      // begins on history index 1
-      history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-      i++; // ... and count up   
-      
-      console.log(history.length);
-    }
-
-    // lets draw ...
-    const draw = (e) => {
-      if (!painting) {
-        return;
-      }
-      e.preventDefault();
-      e.stopPropagation();
-      ctx.lineWidth = strokeSize;
-      ctx.lineCap = "round";
-      ctx.lineTo(e.clientX, e.clientY);
-      ctx.stroke();
-      ctx.strokeStyle = strokeColor;
-      ctx.beginPath();
-      ctx.moveTo(e.clientX, e.clientY);
-    }
-
-    canvas.addEventListener("mousedown", startPos, false);
-    canvas.addEventListener("touchstart", startPos, false);
-    canvas.addEventListener("mouseup", endPos, false);
-    canvas.addEventListener("touchend", endPos, false);
-    canvas.addEventListener("mouseout", endPos, false); // stop if drawing out of canvas area!
-    canvas.addEventListener("mousemove", draw, false);
-    canvas.addEventListener("touchmove", (e) => {
-      const touch = e.touches[0];
-      const mouseEvent = new MouseEvent("mousemove", {
-        clientX: touch.clientX,
-        clientY: touch.clientY
-      });
-      draw(mouseEvent);
-    }, false);
-};
-*/
 
 /* *********************** */
 /* Canvas Drawing History */
