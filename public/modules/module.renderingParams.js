@@ -9,15 +9,6 @@ const noActiveStream = document.querySelector('.no-active-stream');
 const videoContainer = document.querySelector('#video-container');
 let { width, height } = videoContainer.getBoundingClientRect();
 
-/*
-// change from no active cam to active cam reload of video container is required
-window.addEventListener('resize', videoContainer => {
-    console.log(videoContainer);
-    location.reload();   
-});
-//window.removeEventListener('resize', videoContainer);
-*/
-
 export { 
     width, 
     height, 

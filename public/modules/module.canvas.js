@@ -174,8 +174,9 @@ pickerSelectorStrokeColor.addEventListener("change", (event) => {
 });
 
 // detect changes of dimensions from videoContainer to adapt canvas to new dimensions
+// good example here for is going into fullscreen mode and back 
 const resizeObserver = new ResizeObserver((entries) => {
-  video.play(); // keep canvas alive on resizing via playing video to get frames!
+  video.play(); // keep canvas alive on resizing via playing video to deliver fps!
   pauseAndDrawOnImage.setAttribute('aria-pressed', false);
 
   const entry = entries[0];

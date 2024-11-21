@@ -39,10 +39,10 @@ const doPausePlayVideo = async () => {
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
-          .then(res => toggleFs.setAttribute('aria-pressed', true));
+          .then(res => [toggleFs.setAttribute('aria-pressed', true), showSnackBar('Fullscreen mode activated')]);
     } else if (document.exitFullscreen) {
       document.exitFullscreen()
-          .then(res => toggleFs.setAttribute('aria-pressed', false));
+          .then(res => [toggleFs.setAttribute('aria-pressed', false), showSnackBar('Fullscreen mode deactivated')]);
     }
   };
 
