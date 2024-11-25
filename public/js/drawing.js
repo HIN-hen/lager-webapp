@@ -22,8 +22,6 @@ let strokeSize = 8;
  let history = [];
  let i = -1;
 
- console.log(ctx);
-
 //-- toolbox actions with visual handling drawing history
 // remove all drawings from canvas
 const reset = () => { 

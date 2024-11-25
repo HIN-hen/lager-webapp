@@ -109,7 +109,6 @@ let painting = false;
       }
       if (e.type === 'mouseout') { // catch on drawing mouse out events to prevent mouse drawing bug.
         endPos(e);
-        alert("Drawing outside detected.");
         return;
       }
       e.preventDefault();
