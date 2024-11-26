@@ -125,10 +125,11 @@ let painting = false;
 /* *********************** */
 /* Canvas Drawing History */
 /* ***********************/
-const historyInit = () => {
+const historyInit = () => { // must be initially on history length = 1 and i = 0
   history.length = 1;
   ctx.putImageData(history[0], 0, 0); 
-  i = -1; 
+  //i = -1;
+  i = 0; 
 };
 
 const historyStepUndo = () => {
