@@ -1,5 +1,5 @@
 # Lager Webapp
-## Creating photos from video streams with pause and draw with autosaving images in folder without database.
+## Creating photos from video streams with pause and draw with autosaving images in folder without database. With photo library.
 ## Todo: Documentation
 ```
 Prototyping
@@ -10,5 +10,6 @@ Prototyping
 
 ```
 WEBSERVER: HOSTING WEBAPP ON LINUX
-PM2 einrichten für Autostart on restart
+Requirements, Settings, ...
+PM2 einrichten für Autostart on restart [erledigt]
 ```

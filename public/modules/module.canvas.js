@@ -177,6 +177,7 @@ pickerSelectorStrokeColor.addEventListener("change", (event) => {
 const resizeObserver = new ResizeObserver((entries) => {
   video.play(); // keep canvas alive on resizing via playing video to deliver fps!
   pauseAndDrawOnImage.setAttribute('aria-pressed', false);
+  toolBox.classList.remove('show-tools');
 
   const entry = entries[0];
   
