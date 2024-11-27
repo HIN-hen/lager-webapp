@@ -28,6 +28,9 @@ Autodeploy from Github: https://gist.github.com/hoangmirs/b2cb60e0aa60019f0c8b13
 Autodeploy with PM2: https://gist.github.com/zmts/98aec1c033e460a51da74acd74b22609 
 GIT Deploy: 
 - new Sudo User Ubuntu with password hennlich123
+
+https://medium.com/@realshamshod01/set-up-auto-deploy-for-node-js-app-just-in-4-steps-using-github-actions-and-pm2-7d192fbd2c37
+https://osuka.hashnode.dev/cicd-with-github-actions-and-self-hosted-runners
 ```
 
 ```
