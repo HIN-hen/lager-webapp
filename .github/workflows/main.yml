@@ -17,4 +17,4 @@ jobs:
         node-version: 22.x
     - run: npm install
     - run: npm test
-    - run: pm2 restart ecosystem.config.js --only client
+    - run: pm2 restart app
