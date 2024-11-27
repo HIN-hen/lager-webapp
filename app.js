@@ -20,5 +20,5 @@ app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 
 app.listen(port, () => {
-    console.log(`App listening on port ${port} -> http://localhost:${port} TESTE.`)
+    console.log(`App listening on port ${port} -> http://localhost:${port}`)
 });
