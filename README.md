@@ -12,7 +12,7 @@ Prototyping
 WEBSERVER: HOSTING WEBAPP ON LINUX
 Requirements, Settings, ...
 PM2 einrichten für Autostart on restart [erledigt]
-
+CI/CD Pipeline: https://ironeko.com/posts/how-to-set-up-a-ci-cd-pipeline-to-an-ubuntu-server-with-github
 ```
 
 ```
@@ -28,4 +28,8 @@ Autodeploy from Github: https://gist.github.com/hoangmirs/b2cb60e0aa60019f0c8b13
 Autodeploy with PM2: https://gist.github.com/zmts/98aec1c033e460a51da74acd74b22609 
 GIT Deploy: 
 - new Sudo User Ubuntu with password hennlich123
+```
+
+```
+Commit Testing for GITHUB -> lpa.hennlich.at app folder...
 ```
