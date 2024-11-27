@@ -1,17 +1,20 @@
-#workflow name
-name: "simple workflow pm2 configuration"
+name: Node.js CI
 
-#event, trigger action that running our Jobs.
-#In this file we trigger pm2-configuration every we push code to repository.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
-  pm2-configuration:
-    #runner, This job will be running in runner with Ubuntu Server latest version.
-    runs-on: ubuntu-latest
+  build:
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 22.x
       uses: actions/setup-node@v2
       with:
-        node-version: 22.x    
+        node-version: 22.x 
+   
     - run: npm install
-    - run: pm2 restart app --watch
+    - run: pm2 restart app
