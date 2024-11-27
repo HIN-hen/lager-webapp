@@ -16,4 +16,4 @@ jobs:
       with:
         node-version: 22.x    
     - run: npm install
-    - run: pm2 restart app
+    - run: pm2 restart app --watch

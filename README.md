@@ -32,8 +32,3 @@ GIT Deploy:
 https://medium.com/@realshamshod01/set-up-auto-deploy-for-node-js-app-just-in-4-steps-using-github-actions-and-pm2-7d192fbd2c37
 https://osuka.hashnode.dev/cicd-with-github-actions-and-self-hosted-runners
 ```
-
-```
-Commit Testing for GITHUB -> lpa.hennlich.at app folder...
-Commit Testing #2.
-```
