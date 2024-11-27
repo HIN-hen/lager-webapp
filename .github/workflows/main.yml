@@ -8,7 +8,6 @@ jobs:
     #runner, This job will be running in runner with Ubuntu Server latest version.
     runs-on: ubuntu-latest
     steps:
-<<<<<<< HEAD
     - uses: actions/checkout@v2
     - name: Use Node.js 22.x
       uses: actions/setup-node@v2
