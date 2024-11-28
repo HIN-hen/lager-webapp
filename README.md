@@ -34,5 +34,5 @@ https://osuka.hashnode.dev/cicd-with-github-actions-and-self-hosted-runners
 ```
 
 ```
-Test git -> pm2.
+Test git -> pm2.22
 ```
