@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
       {
-        name: 'app',
+        name: 'lager-webapp',
         script: 'npm start',
         time: true,
         instances: 1,
@@ -17,7 +17,8 @@ module.exports = {
     deploy: {
       production: {
         user: 'lager',
-        host: 'lpa.hennlich.at',
+        //host: 'lpa.hennlich.at',
+        host: '10.100.120.56',
         key: 'deploy.key',
         ref: 'origin/main',
         repo: 'https://github.com/HIN-hen/lager-webapp.git',
