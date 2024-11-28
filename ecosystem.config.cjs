@@ -22,7 +22,7 @@ module.exports = {
         key: 'deploy.key',
         ref: 'origin/main',
         repo: 'https://github.com/HIN-hen/lager-webapp.git',
-        path: '/home/lager/lager-webapp',
+        path: '/home/lager',
         'post-deploy':
           'npm install && pm2 reload ecosystem.config.cjs && pm2 save && git checkout package.lock',
         env: {
