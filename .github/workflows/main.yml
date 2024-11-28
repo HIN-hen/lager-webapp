@@ -37,4 +37,4 @@ jobs:
     - name: Deploy
       run: env $(cat .env | grep -v \"#\" | xargs) pm2 deploy production
         # Or alternately, put this deploy script in your package.json's scripts and run it using yarn/npm:
-        # run: yarn deploy yyy
+        # run: yarn deploy

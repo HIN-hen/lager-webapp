@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
       {
-        name: 'lager-webapp',
+        name: 'app',
         script: 'npm start',
         time: true,
         instances: 1,
@@ -15,20 +15,7 @@ module.exports = {
       },
     ],
     deploy: {
-      development: {
-        user: 'lager',
-        host: '127.0.0.1',
-        //host: '10.100.120.56',
-        key: 'deploy.key',
-        ref: 'origin/main',
-        repo: 'https://github.com/HIN-hen/lager-webapp.git',
-        path: '/home/lager',
-        'post-deploy':
-          'npm install && pm2 reload && pm2 save && git checkout package.lock',
-        env: {
-          NODE_ENV: 'development',
-        },
-      },
+     /*
       production: {
         user: 'lager',
         host: 'lpa.hennlich.at',
@@ -43,5 +30,14 @@ module.exports = {
           NODE_ENV: 'production',
         },
       },
+      */
+      production : {
+           "user" : "lager",
+           "host" : ["lpa.hennlich.at"],
+           "ref"  : "origin/master",
+           "repo" : "git@github.com:HIN-hen/lager-webapp.git",
+           "path" : "/home/lager",
+           "post-deploy" : "npm install"
+      }
     },
   }
