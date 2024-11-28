@@ -4,5 +4,3 @@ node_modules
 # prevent removing existing images !!!
 # with not overwriting uploads folders on push
 uploads
-
-.github

@@ -1,9 +1,0 @@
-diff a/.github/workflows/main.yml b/.github/workflows/main.yml	(rejected hunks)
-@@ -3,6 +3,7 @@
- 
- #event, trigger action that running our Jobs.
- #In this file we trigger pm2-configuration every we push code to repository.
-+on: [push]
- jobs:
-   pm2-configuration:
-     #runner, This job will be running in runner with Ubuntu Server latest version.
