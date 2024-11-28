@@ -33,7 +33,7 @@ module.exports = {
       */
       production : {
            "user" : "lager",
-           "host" : ["lpa.hennlich.at"],
+           "host" : ["10.100.120.56"],
            "ref"  : "origin/master",
            "repo" : "git@github.com:HIN-hen/lager-webapp.git",
            "path" : "/home/lager",
