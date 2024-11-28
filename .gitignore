@@ -1,3 +1,6 @@
+# on npm install
 node_modules
 
-.env
+# prevent removing existing images !!!
+# with not overwriting uploads folders on push
+uploads

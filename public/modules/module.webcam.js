@@ -1,7 +1,7 @@
 "use strict";
 
 import { width, height, video, noActiveStream } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot, /*toggleFs*/ } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot } from "/modules/module.controlButtons.js";
 
 // set video constraints
 const constraints = {
@@ -47,23 +47,33 @@ const getMediaStream = async () => {
   return mediaStream;
 };
 
+// activate webcam with check
 const activateWebcam = async () => {
+
+    noActiveStream.classList.remove('d-none');
+    pauseAndDrawOnImage.setAttribute('disabled', true);
+    snapshot.setAttribute('disabled', true);
+  
+    // case 1: no available media device
     const hasVideoDevices = await getVideoDevices();
+    if (hasVideoDevices.length === 0) {
+      return;
+    } 
+
+    // case 2: no available media stream (cam blocked in browser from user etc.)
     const hasMediaStream = await getMediaStream();
-    if (hasVideoDevices.length > 0 && (hasMediaStream && 'id' in hasMediaStream)) {
-      video.srcObject = hasMediaStream;
-      video.onloadedmetadata = () => {
-        video.play();
-      }
-      pauseAndDrawOnImage.classList.remove('d-none');
-      snapshot.classList.remove('d-none');
-    } else {
-      console.log('init application -> no active camera stream') 
-      noActiveStream.classList.remove('d-none');
-      pauseAndDrawOnImage.setAttribute('disabled', true);
-      //toggleFs.setAttribute('disabled', true);
-      snapshot.setAttribute('disabled', true);
+    if (hasMediaStream === null || !'id' in hasMediaStream) {
+      return;
     }
+    
+    // all ok ? let's play and feed canvas with video frames ;)
+    video.srcObject = hasMediaStream;
+
+    // activate interaction ui buttons
+    noActiveStream.classList.add('d-none');
+    pauseAndDrawOnImage.removeAttribute('disabled');
+    snapshot.removeAttribute('disabled');
+
   };
   
   export default activateWebcam;
