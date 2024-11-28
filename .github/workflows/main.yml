@@ -1,13 +1,12 @@
-name: Node.js CI
-
-on: [push]
+name: CI - Master
+  
+on:
+    push:
+      branches: [ main ]
 
 jobs:
-  pm2-configuration:
-
-    #self-hosted runner
-    runs-on: self-hosted
-
+  deploy:
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout #checkout code from repository, so code downloaded in runner.  
       uses: actions/checkout@v4.2.2  
@@ -15,12 +14,27 @@ jobs:
       uses: actions/setup-node@v4.1.0        
       with:
         node-version: 22.x 
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_PRIVATE_KEY" > ./deploy.key
+        sudo chmod 600 ./deploy.key
+        echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      shell: bash
+      env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
 
-    - run: npm install pm2@latest -g #install pm2 global
-    - run: pm2 -V #check pm2 version
-    - run: pm2 list #check pm2 list
-   #running pm2 in mode cluster and --watch set to auto restart if index.js have changes.
-    #- run: pm2 start index.js --watch -i max
-   
-    - run: npm install
-    - run: pm2 restart app
+    # (optional - only needed if your config uses environment variables)
+    - name: Create env file
+      run: |
+          touch .env
+          echo DATABASE_ADDRESS=${{ secrets.DATABASE_ADDRESS }} >> .env
+
+    - name: Install PM2
+      run: npm i pm2
+
+    - name: Deploy
+      run: env $(cat .env | grep -v \"#\" | xargs) pm2 deploy ecosystem.config.js staging
+        # Or alternately, put this deploy script in your package.json's scripts and run it using yarn/npm:
+        # run: yarn deploy

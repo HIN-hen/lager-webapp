@@ -1,0 +1,26 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  pm2-configuration:
+
+    #self-hosted runner
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout #checkout code from repository, so code downloaded in runner.  
+      uses: actions/checkout@v4.2.2  
+    - name: Setup Node.js environment #setup nodejs in our runner
+      uses: actions/setup-node@v4.1.0        
+      with:
+        node-version: 22.x 
+
+    - run: npm install pm2@latest -g #install pm2 global
+    - run: pm2 -V #check pm2 version
+    - run: pm2 list #check pm2 list
+   #running pm2 in mode cluster and --watch set to auto restart if index.js have changes.
+    #- run: pm2 start index.js --watch -i max
+   
+    - run: npm install
+    - run: pm2 restart app
