@@ -23,7 +23,7 @@ module.exports = {
         repo: 'https://github.com/HIN-hen/lager-webapp.git',
         path: '/home/lager/lager-webapp',
         'post-deploy':
-          'npm install && pm2 reload ecosystem.config.cjs --env production && pm2 save && git checkout package.lock',
+          'npm install && pm2 reload ecosystem.config.cjs && pm2 save && git checkout package.lock',
         env: {
           NODE_ENV: 'production',
         },
