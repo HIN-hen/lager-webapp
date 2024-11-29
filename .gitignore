@@ -1,6 +1,12 @@
+# webstorm config not needed on github
+.idea
+
 # on npm install
 node_modules
 
 # prevent removing existing images !!!
 # with not overwriting uploads folders on push
 uploads
+
+# don't push for security reasons
+ecosystem.config.js

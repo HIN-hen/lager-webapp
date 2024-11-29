@@ -33,7 +33,7 @@ module.exports = {
       */
       production : {
            "user" : "lager",
-           "host" : "10.100.120.56:22",
+           "host" : "10.100.120.56",
            "ref"  : "origin/main",
            "repo" : "git@github.com:HIN-hen/lager-webapp.git",
            "path" : "/home/lager",
