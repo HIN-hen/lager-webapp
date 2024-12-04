@@ -1,0 +1,1 @@
+import activateWebcam from"/modules/module.webcam.js";import*as activateCanvas from"/modules/module.canvas.js";import*as uiControls from"/modules/module.controls.js";await activateWebcam(),await activateCanvas,await uiControls;

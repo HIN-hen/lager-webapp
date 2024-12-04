@@ -1,0 +1,1 @@
+let snackBar=document.querySelector("#snackbar"),showSnackBar=a=>{let e=snackBar.querySelector("p");e.innerHTML=a,snackBar.className="show",setTimeout(()=>{snackBar.className=snackBar.className.replace("show",""),e.innerHTML=""},3e3)};

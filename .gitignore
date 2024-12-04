@@ -4,6 +4,8 @@
 # on npm install
 node_modules
 
+gulpfile.js
+
 # prevent removing existing images !!!
 # with not overwriting uploads folders on push
 uploads
