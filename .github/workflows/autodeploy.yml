@@ -48,8 +48,9 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd /home/lager/
+            cd /home/lager/lager-webapp/
             rm -rf *
-            mv ~/github/workflows/dist/* .
+            #mv ~/github/workflows/dist/* .
+            mv ~/dist/* .
             npm install --production
             pm2 restart all # or your preferred process manager
