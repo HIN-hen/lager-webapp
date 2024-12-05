@@ -48,7 +48,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd /path/to/your/app
+            cd /home/lager/
             rm -rf *
             mv ~/github-workspace/dist/* .
             npm install --production
