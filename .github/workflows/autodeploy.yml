@@ -50,7 +50,6 @@ jobs:
           script: |
             cd /home/lager/lager-webapp/
             rm -rf *
-            #mv ~/github/workflows/dist/* .
-            mv ~/dist/* .
+            mv ~/github-workspace/dist/* .
             npm install --production
             pm2 restart all # or your preferred process manager
