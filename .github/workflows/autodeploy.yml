@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Lookup
-        run: nslookup ${{ secrets.REGISTRY_URL }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -42,6 +39,18 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
+
+      - name: Install OpenVPN
+        run: |
+          sudo apt update
+          sudo apt install -y openvpn openvpn-systemd-resolved
+      - name: Connect to VPN
+        uses: "kota65535/github-openvpn-connect-action@v2"
+        with:
+          config_file: .github/workflows/client.ovpn
+          username: ${{ secrets.OVPN_USERNAME }}
+          password: ${{ secrets.OVPN_PASSWORD }}
+          client_key: ${{ secrets.USER_KEY }} 
 
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v0.1.6
