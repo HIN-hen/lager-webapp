@@ -4,22 +4,28 @@
   "version": "1.0.2",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node src/app.js",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "node dist/app.cjs",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "Harald Innetzberger",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.19.2",
+    "express": "^4.21.1",
     "minify": "^12.0.0",
-    "nodemon": "^3.1.4",
     "pug": "^3.0.3"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "vite": "^5.4.11",
+    "vite-plugin-node": "^4.0.0",
+    "vite-plugin-pug": "^0.4.1"
   }
 }
