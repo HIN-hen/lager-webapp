@@ -52,4 +52,4 @@ jobs:
             rm -rf *
             mv ~/github-workspace/dist/* .
             npm install --production
-            pm2 restart all # or your preferred process manager
+            pm2 restart all # or your preferred process manager 
