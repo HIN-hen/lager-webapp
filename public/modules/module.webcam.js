@@ -1,7 +1,7 @@
 "use strict";
 
 import { width, height, video, noActiveStream } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, canvasZoom } from "/modules/module.controlButtons.js";
 
 // set video constraints
 const constraints = {
@@ -71,6 +71,7 @@ const activateWebcam = async () => {
 
     // activate interaction ui buttons
     noActiveStream.classList.add('d-none');
+    canvasZoom.classList.remove('d-none');
     pauseAndDrawOnImage.removeAttribute('disabled');
     snapshot.removeAttribute('disabled');
 

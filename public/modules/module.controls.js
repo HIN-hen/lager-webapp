@@ -1,7 +1,7 @@
 "use strict";
 
 import { video, canvas } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot, toggleFs } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, toggleFs, canvasZoom } from "/modules/module.controlButtons.js";
 
 const videoOverlay = document.querySelector('.video-overlay');
 const drawingToolBox = document.querySelector('ul.toolbox');
@@ -11,12 +11,14 @@ const videoContainer = document.querySelector('#video-container');
 const doPausePlayVideo = async () => {
     if (!video.paused) {
       video.pause();
+      canvasZoom.classList.add('d-none');
       drawingToolBox.classList.add("show-tools");
       videoContainer.classList.add('drawing-active');
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'true');
       showSnackBar('Drawing mode enabled');
     } else {
       await video.play();
+      canvasZoom.classList.remove('d-none');
       drawingToolBox.classList.remove("show-tools");
       videoContainer.classList.remove('drawing-active');
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'false');

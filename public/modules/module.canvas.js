@@ -25,8 +25,39 @@ ctx = canvas.getContext('2d', {
     willReadFrequently: true, // for faster drawing
     alpha: false
 });
-     
-const drawIt = () => ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+/* ********************* */
+/* Zoom it baby ;) **** */
+/* ******************* */
+// Initial zoom level
+let zoomLevel = 1;
+
+// Draw video on canvas
+function drawIt() {
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Calculate dimensions to center and zoom the video
+    const videoWidth = video.videoWidth * zoomLevel;
+    const videoHeight = video.videoHeight * zoomLevel;
+    const x = (canvas.width - videoWidth) / 2;
+    const y = (canvas.height - videoHeight) / 2;
+
+    // Draw the video on the canvas
+    ctx.drawImage(video, x, y, videoWidth, videoHeight);
+
+    // Repeat the drawing process
+    //requestAnimationFrame(drawIt);
+}
+
+const zoomSlider = document.querySelector('input#zoom');
+// Update zoom level when the slider is changed
+zoomSlider.addEventListener('input', (event) => {
+    zoomLevel = parseFloat(event.target.value);
+});
+
+// vorher: const drawIt = () => ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
 // init canvas, drawing and history at once
 const initCanvasDrawingAndHistory = () => {

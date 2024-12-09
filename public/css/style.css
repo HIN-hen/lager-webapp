@@ -313,6 +313,25 @@ img:not([src]) {
 }
 
 /* ************************* */
+/* Canvas Zooming ********* */
+/* *********************** */
+#canvas-zoom {
+  display: inline-flex;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 2;
+  transform: translate(-50%, 0);
+  cursor: pointer;
+
+  input {
+    padding: 1em .7em 1em .7em;
+    background-color: rgba(17, 17, 17, .5);
+  }
+}
+
+/* ************************* */
 /* Drawing Toolbox **********/
 /* *************************/
 ul.toolbox {

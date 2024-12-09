@@ -1,6 +1,8 @@
 # webstorm config not needed on github
 .idea
 
+dist 
+
 # on npm install
 node_modules
 
