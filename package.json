@@ -1,12 +1,11 @@
 {
   "type": "module",
   "name": "lpa.hennlich.at",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "build": "gulp"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "Harald Innetzberger",
