@@ -1,3 +1,4 @@
+/* Module: Canvas */
 "use strict";
 
 import { video, canvas, videoContainer } from "/modules/module.renderingParams.js";
@@ -33,7 +34,7 @@ ctx = canvas.getContext('2d', {
 let zoomLevel = 1;
 
 // Draw video on canvas
-function drawIt() {
+const drawIt = () => {
 
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -158,7 +159,7 @@ let painting = false;
 /* ***********************/
 const historyInit = () => { // must be initially on history length = 1 and i = 0
   history.length = 1;
-  ctx.putImageData(history[0], 0, 0); 
+  ctx.putImageData(history[0], 0, 0);
   //i = -1;
   i = 0; 
 };

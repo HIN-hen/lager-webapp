@@ -1,13 +1,15 @@
 # webstorm config not needed on github
 .idea
 
+.env
+
 dist 
 
 # on npm install
 node_modules
 
-#gulpfile.js
+gulpfile.js
 
 # prevent removing existing images !!!
 # with not overwriting uploads folders on push
-#uploads
+uploads
