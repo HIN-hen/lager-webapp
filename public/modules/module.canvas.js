@@ -205,12 +205,11 @@ pickerSelectorStrokeColor.addEventListener("change", (event) => {
     strokeColor = event.target.value;
 });
 
-// detect changes of dimensions from videoContainer to adapt canvas to new dimensions
-// good example here for is going into fullscreen mode and back 
+// detect changes of dimensions from videoContainer to adapt canvas to actual dimensions 
 const resizeObserver = new ResizeObserver((entries) => {
   video.play(); // keep canvas alive on resizing via playing video to deliver fps!
-  pauseAndDrawOnImage.setAttribute('aria-pressed', false);
-  toolBox.classList.remove('show-tools');
+  //pauseAndDrawOnImage.setAttribute('aria-pressed', false);
+  //toolBox.classList.remove('show-tools');
 
   const entry = entries[0];
   

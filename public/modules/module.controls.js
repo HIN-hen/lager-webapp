@@ -1,7 +1,7 @@
 "use strict";
 
 import { video, canvas } from "/modules/module.renderingParams.js";
-import { pauseAndDrawOnImage, snapshot, toggleFs, canvasZoom } from "/modules/module.controlButtons.js";
+import { pauseAndDrawOnImage, snapshot, /*toggleFs,*/ canvasZoom } from "/modules/module.controlButtons.js";
 
 const videoOverlay = document.querySelector('.video-overlay');
 const drawingToolBox = document.querySelector('ul.toolbox');
@@ -35,9 +35,15 @@ const doPausePlayVideo = async () => {
     await feedbackPhotoTaken();
   
     showSnackBar('Photo uploaded');
+
+    // leave drawing mode after uploading image
+    if (video.paused) {
+      pauseAndDrawOnImage.onclick();
+    }
   };
   
   // Toggle Fullscreen
+  /* HIN: Actually not needed (10.12.24 info Christian Steiner)
   const doToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen()
@@ -47,6 +53,7 @@ const doPausePlayVideo = async () => {
           .then(res => [toggleFs.setAttribute('aria-pressed', false), showSnackBar('Fullscreen mode disabled')]);
     }
   };
+  */
 
   // image upload
   const uploadPhotoToFolder = async (photo) => {
@@ -78,4 +85,4 @@ const doPausePlayVideo = async () => {
 /* Controls Buttons click events */
 pauseAndDrawOnImage.onclick = doPausePlayVideo;
 snapshot.onclick = doTakeAPhoto;
-toggleFs.onclick = doToggleFullScreen;
+//toggleFs.onclick = doToggleFullScreen;

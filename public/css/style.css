@@ -1,5 +1,9 @@
 @import './pico/pico.jade.min.css';
 
+:root {
+  --background-color: #111;
+}
+
 /* ********************* */
 /* camera (/camera) **** */
 /* ********************* */
@@ -46,15 +50,20 @@
   
   position: fixed;
 
-  background-color: #111;
+  background-color: var(--background-color);
 
   button {
     background-position: center center;
     background-repeat: no-repeat;
     border-radius: 50%;
-    width: 5em;
-    height: 5em;
-    background-size: 3em;
+    width: 5.7em;
+    height: 5.7em;
+    background-size: 3.7em;
+
+    border-width: .2em;
+    border: .2em solid rgb(8, 8, 8);
+
+    box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
 
     /* Snapshot button */
     &.snapshot {
@@ -69,10 +78,11 @@
     }
     /* Pause and Draw Buttons */
     &.pause-and-draw-on-image {
-      background-image: url('../images/camera/pause.svg');
+      /*background-image: url('../images/camera/pause.svg');*/
+      background-image: url('../images/camera/pause_and_draw.svg');
     }
     &.pause-and-draw-on-image[aria-pressed='true'] {
-      background-image: url('../images/camera/play.svg');
+      background-color: var(--pico-primary-focus);
     }
     /* Fullscreen toggle buttons */
     &.toggle-fs {
@@ -129,7 +139,7 @@
   right: 0;
   bottom: 0;
   z-index: 10;
-  background-color: #111;
+  background-color: var(--background-color);
 }
 
 .d-none {
@@ -247,7 +257,7 @@
 table#tableView img {
   width: 2em;
   height: 2em;
-  border: 2px solid #111;
+  border: 2px solid var(--background-color);
   cursor: pointer;
 }
 /* Modals */
@@ -361,7 +371,7 @@ ul.toolbox {
     background-size: 2.5em;
     width: 2.8em;
     height: 2.8em;
-    border: 1px solid #111;
+    border: 1px solid var(--background-color);
 
     &.tool-brush {
       background-image: url('../images/camera/drawingTools/brush.svg');

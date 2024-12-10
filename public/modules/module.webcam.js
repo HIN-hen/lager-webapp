@@ -68,7 +68,7 @@ const activateWebcam = async () => {
     
     // all ok ? let's play and feed canvas with video frames ;)
     video.srcObject = hasMediaStream;
-
+ 
     // activate interaction ui buttons
     noActiveStream.classList.add('d-none');
     canvasZoom.classList.remove('d-none');
