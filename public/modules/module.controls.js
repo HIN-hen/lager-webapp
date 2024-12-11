@@ -22,7 +22,7 @@ const doPausePlayVideo = async () => {
       drawingToolBox.classList.remove("show-tools");
       videoContainer.classList.remove('drawing-active');
       pauseAndDrawOnImage.setAttribute('aria-pressed', 'false');
-      showSnackBar('Drawing mode disabled');
+      //showSnackBar('Drawing mode disabled');
     }
   };
   

@@ -146,17 +146,20 @@ viewMode.addEventListener('change', (event) => {
     location.reload();
 });
 
-//-- format date to required download designation format (YYYY-MM-DD_HH:MM.jpg)
+//-- format date to required download designation format (YYYY-MM-DD_HH:MM:SS.jpg)
 const formatDateToDownloadDesignation = (event) => {
     let { id } = event.target; // keep it simple ... get required props from event target
-
+    //const originalFileEnding = id.split('.')[1]; // set original file ending
+   
+    // build required format
     const ident = id.split('.')[0];
     const dt = new Date(parseInt(ident));
     const toIso = dt.toISOString();
     const toIsoWithoutSeconds = toIso.substring(0, toIso.lastIndexOf(':'));
     const destinationFormat = toIsoWithoutSeconds.replace('T', '_').replaceAll('-', '_');
 
-    event.target.setAttribute('download', destinationFormat); // reset download attribute with required format
+    //event.target.setAttribute('download', destinationFormat + '.' + originalFileEnding); // overwrite download attribute with original file ending
+    event.target.setAttribute('download', destinationFormat); // overwrite download attribute
 };
 
 //-- load required data after dom content was loaded
